@@ -3,6 +3,9 @@ module.exports = {
   purge: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: false,
   theme: {
+    fontFamily: {
+      sans: ['Lora'],
+    },
     extend: {
       gridTemplateColumns: {
         fluid: 'repeat(auto-fill, minmax(40px, 1fr))',
@@ -12,5 +15,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }

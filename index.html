@@ -7,28 +7,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <title>Fontset</title>
   </head>
-  <body class="bg-gray-800 text-gray-100">
-    <h1>Fontset</h1>
-    <span>
-      Fontset helps you reduce the size of variable fonts, by creating a version
-      of the font that only uses characters you require, so you can self-host
-      it.
-    </span>
+  <body class="bg-gray-800 text-gray-100 font-serif">
+    <div class="px-24">
+      <h1 class="text-2xl text-gray-400 mt-8">Fontset</h1>
+      <h2 class="text-6xl mt-8">
+        Generate a tiny version of a Google Fonts hosted variable font. 🧐🍷
+      </h2>
+    </div>
 
-    <h2>1. Select Font (Google Fonts)</h2>
-    <div data-fonts></div>
+    <div class="mt-24 px-24">
+      <p class="text-4xl">1. Select Google font</p>
+      <div class="mt-8 text-gray-800" data-fonts></div>
+    </div>
 
-    <h2>2. Select Character Set</h2>
-    <select>
-      <option value="English">English</option>
-    </select>
+    <div class="bg-blue-600 mt-24 py-8">
+      <div class="px-24">
+        <p class="text-4xl">2. Select Character Set</p>
+        <select class="my-8 text-gray-800">
+          <option value="English">English</option>
+        </select>
+        <div class="grid gap-8 grid-cols-fluid" data-character-table></div>
+      </div>
+    </div>
 
-    <div class="grid gap-4 grid-cols-fluid" data-character-table></div>
-
-    <h2>Font Preview (Editable)</h2>
-    <p data-preview-text contenteditable="true" spellcheck="false">
-      The quick brown fox jumps over the lazy dog.
-    </p>
+    <div class="my-24 px-24 pb-16">
+      <p class="text-4xl">3. Preview</p>
+      <div class="mt-8 border-4 border-dashed border-blue-300 rounded">
+        <p
+          class="text-4xl p-8"
+          data-preview-text
+          contenteditable="true"
+          spellcheck="false"
+        >
+          The quick brown fox jumps over the lazy dog.
+        </p>
+      </div>
+    </div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -21,7 +21,8 @@ const characterTableEl = document.querySelector('[data-character-table')
 for (const character of characterTable['English']) {
   const divEl = document.createElement('div')
   divEl.innerText = character
-  divEl.className = 'bg-gray-700 p-4'
+  divEl.className =
+    'bg-blue-900 rounded text-xl h-8 p-8 flex justify-center items-center'
   characterTableEl?.append(divEl)
 }
 
