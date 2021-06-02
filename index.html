@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head data-head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <title>Fontset</title>
+  </head>
+  <body class="bg-gray-800 text-gray-100">
+    <h1>Fontset</h1>
+    <span>
+      Fontset helps you reduce the size of variable fonts, by creating a version
+      of the font that only uses characters you require, so you can self-host
+      it.
+    </span>
+
+    <h2>1. Select Font (Google Fonts)</h2>
+    <div data-fonts></div>
+
+    <h2>2. Select Character Set</h2>
+    <select>
+      <option value="English">English</option>
+    </select>
+
+    <div class="grid gap-4 grid-cols-fluid" data-character-table></div>
+
+    <h2>Font Preview (Editable)</h2>
+    <p data-preview-text contenteditable="true" spellcheck="false">
+      The quick brown fox jumps over the lazy dog.
+    </p>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
