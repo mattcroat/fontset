@@ -7,42 +7,81 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <title>Fontset</title>
   </head>
-  <body class="bg-gray-800 text-gray-100 font-serif">
-    <div class="px-24">
-      <h1 class="text-2xl text-gray-400 mt-8">Fontset</h1>
-      <h2 class="text-6xl mt-8">
-        Generate a tiny version of a Google Fonts hosted variable font. 🧐🍷
+  <body
+    class="text-gray-50 font-serif bg-gradient-to-br from-indigo-600 to-blue-600"
+  >
+    <head>
+      <h1 class="text-2xl mt-8 px-24">Fontset</h1>
+    </head>
+
+    <section class="px-24 mt-16 text-center">
+      <h2 class="text-6xl leading-tight max-w-screen-md mx-auto">
+        Generate a tiny version of a variable Google font.
       </h2>
-    </div>
+      <a
+        class="text-green-100 mt-8 text-2xl inline-block underline"
+        href="https://joyofcode.xyz/using-fonts-on-the-web"
+        target="_blank"
+      >
+        Why should I care?
+      </a>
+    </section>
 
-    <div class="mt-24 px-24">
-      <p class="text-4xl">1. Select Google font</p>
-      <div class="mt-8 text-gray-800" data-fonts></div>
-    </div>
+    <main class="text-center">
+      <section class="mt-24 px-24">
+        <p class="text-4xl">1. Select Google font</p>
+        <div class="mt-8 text-gray-800" data-fonts></div>
+      </section>
 
-    <div class="bg-blue-600 mt-24 py-8">
-      <div class="px-24">
-        <p class="text-4xl">2. Select Character Set</p>
-        <select class="my-8 text-gray-800">
-          <option value="English">English</option>
-        </select>
-        <div class="grid gap-8 grid-cols-fluid" data-character-table></div>
-      </div>
-    </div>
+      <section class="bg-blue-600 mt-24 py-8">
+        <div class="px-24">
+          <p class="text-4xl">2. Select Character Set</p>
+          <select class="my-8 text-gray-800">
+            <option value="English">English</option>
+          </select>
+          <div class="grid gap-8 grid-cols-fluid" data-character-table></div>
+        </div>
+      </section>
 
-    <div class="my-24 px-24 pb-16">
-      <p class="text-4xl">3. Preview</p>
-      <div class="mt-8 border-4 border-dashed border-blue-300 rounded">
-        <p
-          class="text-4xl p-8"
-          data-preview-text
-          contenteditable="true"
-          spellcheck="false"
+      <section class="my-24 px-24 pb-16">
+        <p class="text-4xl">3. Editable Preview</p>
+        <div class="mt-8 border-4 border-dashed border-blue-400 rounded">
+          <p
+            class="text-4xl p-8"
+            data-preview-text
+            contenteditable="true"
+            spellcheck="false"
+          >
+            The quick brown fox jumps over the lazy dog.
+          </p>
+        </div>
+        <svg
+          class="h-24 w-24 mx-auto mt-16 text-blue-400"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
         >
-          The quick brown fox jumps over the lazy dog.
-        </p>
-      </div>
-    </div>
+          <path
+            d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z"
+          />
+        </svg>
+        <a
+          class="inline-block text-2xl mt-16 capitalize p-4 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+        >
+          May I have the font, pretty please
+        </a>
+      </section>
+    </main>
+
+    <footer class="py-4 text-center text-green-100">
+      Made with ❤️ by
+      <a class="underline" href="https://github.com/mattcroat">Matia</a>. Source
+      code on on
+      <a class="underline" href="https://github.com/mattcroat/fontset">GitHub</a
+      >.
+    </footer>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

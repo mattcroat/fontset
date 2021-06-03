@@ -4,7 +4,7 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      sans: ['Lora'],
+      sans: ['DM Serif Display'],
     },
     extend: {
       gridTemplateColumns: {
