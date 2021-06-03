@@ -16,10 +16,10 @@
 
     <section class="px-24 mt-16 text-center">
       <h2 class="text-6xl leading-tight max-w-screen-md mx-auto">
-        Generate a tiny version of a variable Google font.
+        Generate a tiny Google font to self-host.
       </h2>
       <a
-        class="text-green-100 mt-8 text-2xl inline-block underline"
+        class="text-green-100 mt-8 text-2xl inline-block underline italic"
         href="https://joyofcode.xyz/using-fonts-on-the-web"
         target="_blank"
       >
@@ -29,22 +29,47 @@
 
     <main class="text-center">
       <section class="mt-24 px-24">
-        <p class="text-4xl">1. Select Google font</p>
+        <p class="text-4xl italic">1. Select Google font</p>
         <div class="mt-8 text-gray-800" data-fonts></div>
+        <div class="text-2xl mt-8 space-x-2 italic">
+          <input
+            class="p-3 rounded-full"
+            type="checkbox"
+            id="variable-fonts"
+            name="variable-fonts"
+          />
+          <label for="variable-fonts">Show variable fonts only</label>
+        </div>
       </section>
 
-      <section class="bg-blue-600 mt-24 py-8">
+      <section
+        class="bg-gradient-to-br from-indigo-600 via-blue-500 to-indigo-600 shadow-sm mt-24 py-16"
+        style="clip-path: polygon(0 2%, 100% 0, 100% 98%, 0% 100%)"
+      >
         <div class="px-24">
-          <p class="text-4xl">2. Select Character Set</p>
-          <select class="my-8 text-gray-800">
+          <p class="text-4xl italic">2. Select Character Set</p>
+          <select
+            class="my-8 text-gray-800 w-1/2 px-6 py-4 text-2xl border-none rounded-full"
+          >
             <option value="English">English</option>
           </select>
-          <div class="grid gap-8 grid-cols-fluid" data-character-table></div>
+          <div
+            class="grid gap-8 grid-cols-fluid mt-8"
+            data-character-table
+          ></div>
+        </div>
+        <div class="my-16">
+          <p class="text-4xl italic capitalize">Need special characters?</p>
+          <input
+            class="mt-8 w-1/2 px-6 py-4 text-gray-800 placeholder-gray-400 text-2xl border-none rounded-full"
+            type="text"
+            placeholder="e.g. diacritics, greek letters, symbols..."
+          />
         </div>
       </section>
 
       <section class="my-24 px-24 pb-16">
-        <p class="text-4xl">3. Editable Preview</p>
+        <p class="text-4xl italic">3. Editable Preview</p>
         <div class="mt-8 border-4 border-dashed border-blue-400 rounded">
           <p
             class="text-4xl p-8"
@@ -68,15 +93,19 @@
           />
         </svg>
         <a
-          class="inline-block text-2xl mt-16 capitalize p-4 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+          class="inline-block text-2xl mt-16 capitalize px-6 py-4 bg-gray-50 rounded-full hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
         >
-          May I have the font, pretty please
+          <span
+            class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600"
+          >
+            May I have the font, pretty please
+          </span>
         </a>
       </section>
     </main>
 
     <footer class="py-4 text-center text-green-100">
-      Made with ❤️ by
+      Made with 🍜 by
       <a class="underline" href="https://github.com/mattcroat">Matia</a>. Source
       code on on
       <a class="underline" href="https://github.com/mattcroat/fontset">GitHub</a
