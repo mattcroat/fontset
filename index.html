@@ -7,19 +7,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <title>Fontset</title>
   </head>
-  <body
-    class="text-gray-50 font-serif bg-gradient-to-br from-indigo-600 to-blue-600"
-  >
+  <body class="font-serif text-gray-50 bg-gradient-to-br from-indigo-600 to-blue-600">
     <head>
-      <h1 class="text-2xl mt-8 px-24">Fontset</h1>
+      <h1 class="px-24 mt-8 text-2xl">Fontset</h1>
     </head>
 
     <section class="px-24 mt-16 text-center">
-      <h2 class="text-6xl leading-tight max-w-screen-md mx-auto">
-        Generate a tiny Google font to self-host.
-      </h2>
+      <h2 class="max-w-screen-md mx-auto text-6xl leading-tight">Generate a tiny Google font to self-host.</h2>
       <a
-        class="text-green-100 mt-8 text-2xl inline-block underline italic"
+        class="inline-block mt-8 text-2xl italic text-green-100 underline"
         href="https://joyofcode.xyz/using-fonts-on-the-web"
         target="_blank"
       >
@@ -28,76 +24,59 @@
     </section>
 
     <main class="text-center">
-      <section class="mt-24 px-24">
-        <p class="text-4xl italic">1. Select Google font</p>
-        <div class="mt-8 text-gray-800" data-fonts></div>
-        <div class="text-2xl mt-8 space-x-2 italic">
-          <input
-            class="p-3 rounded-full"
-            type="checkbox"
-            id="variable-fonts"
-            name="variable-fonts"
-          />
+      <section class="px-24 mt-24">
+        <h3 class="text-4xl italic">1. Select Google font</h3>
+        <select class="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full" data-fonts-list></select>
+        <div class="mt-8 space-x-2 text-2xl italic">
+          <input class="p-3 rounded-full" type="checkbox" id="variable-fonts" name="variable-fonts" />
           <label for="variable-fonts">Show variable fonts only</label>
         </div>
       </section>
 
       <section
-        class="bg-gradient-to-br from-indigo-600 via-blue-500 to-indigo-600 shadow-sm mt-24 py-16"
+        class="py-16 mt-24 shadow-sm bg-gradient-to-br from-indigo-600 via-blue-500 to-indigo-600"
         style="clip-path: polygon(0 2%, 100% 0, 100% 98%, 0% 100%)"
       >
         <div class="px-24">
-          <p class="text-4xl italic">2. Select Character Set</p>
-          <select
-            class="my-8 text-gray-800 w-1/2 px-6 py-4 text-2xl border-none rounded-full"
-          >
+          <h3 class="text-4xl italic">2. Select Character Set</h3>
+          <select class="w-1/2 px-6 py-4 my-8 text-2xl text-gray-800 border-none rounded-full">
             <option value="English">English</option>
           </select>
-          <div
-            class="grid gap-8 grid-cols-fluid mt-8"
-            data-character-table
-          ></div>
+          <div class="grid gap-8 mt-8 grid-cols-fluid" data-character-table></div>
         </div>
         <div class="my-16">
           <p class="text-4xl italic capitalize">Need special characters?</p>
           <input
-            class="mt-8 w-1/2 px-6 py-4 text-gray-800 placeholder-gray-400 text-2xl border-none rounded-full"
+            class="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 placeholder-gray-400 border-none rounded-full"
             type="text"
             placeholder="e.g. diacritics, greek letters, symbols..."
           />
         </div>
       </section>
 
-      <section class="my-24 px-24 pb-16">
-        <p class="text-4xl italic">3. Editable Preview</p>
-        <div class="mt-8 border-4 border-dashed border-blue-400 rounded">
-          <p
-            class="text-4xl p-8"
-            data-preview-text
-            contenteditable="true"
-            spellcheck="false"
-          >
+      <section class="px-24 pb-16 my-24">
+        <h3 class="text-4xl italic">3. Editable Preview</h3>
+        <div class="mt-8 border-4 border-blue-400 border-dashed rounded">
+          <p class="p-8 text-4xl" data-preview-text contenteditable="true" spellcheck="false">
             The quick brown fox jumps over the lazy dog.
           </p>
         </div>
         <svg
-          class="h-24 w-24 mx-auto mt-16 text-blue-400"
+          class="w-24 h-24 mx-auto mt-16 text-blue-400"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
           fill-rule="evenodd"
           clip-rule="evenodd"
         >
-          <path
-            d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z"
-          />
+          <path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z" />
         </svg>
         <a
-          class="inline-block text-2xl mt-16 capitalize px-6 py-4 bg-gray-50 rounded-full hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+          class="inline-block px-6 py-4 mt-16 text-2xl capitalize transition-all transform rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1"
+          href="#"
+          data-download-link
         >
-          <span
-            class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600"
-          >
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-600">
             May I have the font, pretty please
           </span>
         </a>
@@ -106,10 +85,8 @@
 
     <footer class="py-4 text-center text-green-100">
       Made with 🍜 by
-      <a class="underline" href="https://github.com/mattcroat">Matia</a>. Source
-      code on on
-      <a class="underline" href="https://github.com/mattcroat/fontset">GitHub</a
-      >.
+      <a class="underline" href="https://github.com/mattcroat">Matia</a>. Source code on on
+      <a class="underline" href="https://github.com/mattcroat/fontset">GitHub</a>.
     </footer>
 
     <script type="module" src="/src/main.ts"></script>
