@@ -10,11 +10,20 @@ class Fonts {
   }
 
   public getVariableFonts() {
-    const variableFonts = this.googleFonts
-      .filter((font) => font.axes.length > 0)
-      .map((font) => font.family)
+    const variableFonts = this.googleFonts.filter((font) => font.axes.length > 0).map((font) => font.family)
 
     return variableFonts
+  }
+
+  public parseFonts() {
+    const parsedFonts = this.googleFonts.map((font) => ({
+      family: font.family,
+      category: font.category,
+      weights: Object.keys(font.fonts),
+      axes: font.axes,
+    }))
+
+    return parsedFonts
   }
 
   private readJSON(filePath: string) {
@@ -31,13 +40,14 @@ class Fonts {
     try {
       const fonts = JSON.stringify(data, null, 2)
       fs.writeFileSync(outputPath, fonts, 'utf8')
+      console.log(`Success! 👍 Wrote to ${outputPath}.`)
     } catch (error) {
-      console.error(`Ooops! ${error}`)
+      console.error(`Ooops! 💩 ${error}`)
     }
   }
 }
 
 const fonts = new Fonts('data/fonts.json')
 
-const variableFonts = fonts.getVariableFonts()
-fonts.writeJSON('data/variableFonts.json', variableFonts)
+const parsedFonts = fonts.parseFonts()
+fonts.writeJSON('data/parsedFonts.json', parsedFonts)
