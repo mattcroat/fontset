@@ -15,6 +15,7 @@ export interface State {
   queryString: string
   selectedCharacterSet: string
   selectedFont: string
+  selectedWeights: string
   showVariableFontsOnly: boolean
   specialCharacters: string
 }

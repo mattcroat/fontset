@@ -27,15 +27,19 @@
       <section class="px-24 mt-24">
         <h3 class="text-4xl italic">1. Select Google font</h3>
         <select class="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full" data-fonts-list></select>
-        <div class="mt-8 space-x-2 text-2xl italic">
-          <input class="p-3 rounded-full" type="checkbox" id="variable-fonts" name="variable-fonts" />
+        <div class="mt-8 space-x-2 text-xl">
+          <input class="p-2 rounded" type="checkbox" id="variable-fonts" name="variable-fonts" data-variable-fonts />
           <label for="variable-fonts">Show variable fonts only</label>
+        </div>
+        <div class="my-16 text-2xl capitalize">
+          <span class="block text-indigo-200 mb-4" data-font-weights-title></span>
+          <div class="space-y-4" data-font-weights></div>
         </div>
       </section>
 
       <section
-        class="py-16 mt-24 shadow-sm bg-gradient-to-br from-indigo-600 via-blue-500 to-indigo-600"
-        style="clip-path: polygon(0 2%, 100% 0, 100% 98%, 0% 100%)"
+        class="py-16 mt-24 bg-gradient-to-r from-indigo-600 to-blue-600"
+        style="clip-path: polygon(0 0, 100% 2%, 100% 100%, 0 98%)"
       >
         <div class="px-24">
           <h3 class="text-4xl italic">2. Select Character Set</h3>
@@ -57,7 +61,7 @@
       <section class="px-24 pb-16 my-24">
         <h3 class="text-4xl italic">3. Editable Preview</h3>
         <div class="mt-8 border-4 border-blue-400 border-dashed rounded">
-          <p class="p-8 text-4xl" data-preview-text contenteditable="true" spellcheck="false">
+          <p class="p-8 text-4xl" contenteditable="true" spellcheck="false" data-preview-text>
             The quick brown fox jumps over the lazy dog.
           </p>
         </div>
