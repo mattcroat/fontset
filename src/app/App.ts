@@ -1,4 +1,5 @@
-import type { State } from '@root/src/types'
+import type { State, WeightSizes } from '@root/src/types'
+import { weightNames } from '@root/src/utils/helpers'
 
 import characterTable from '@root/data/characterTable.json'
 import parsedFonts from '@root/data/parsedFonts.json'
@@ -15,6 +16,7 @@ export class App {
       },
     },
     fontURL: '',
+    fontWeights: new Set(),
     lastSelectedFontEl: null,
     queryString: '',
     selectedCharacterSet: '',
@@ -42,6 +44,7 @@ export class App {
     this.setDefaultFont()
 
     this.fontsListEl.onchange = (event) => this.setFont(event)
+    this.fontWeightsEl.onchange = (event) => this.updateSelectedFontWeights(event)
     this.variableFontsCheckboxEl.onchange = (event) => this.showVariableFontsOnly(event)
   }
 
@@ -110,6 +113,7 @@ export class App {
   private setFont(event: Event) {
     const selectedFont = (event.target as HTMLSelectElement).value
     this.updateSelectedFont(selectedFont)
+    this.updateFontWeights()
     this.updateSelectedFontAttribute()
     this.loadFont()
   }
@@ -119,31 +123,22 @@ export class App {
     this.updateFontOptions()
     this.updateSelectedFont(this.fontsListEl.value)
     this.updateSelectedFontAttribute()
+    this.updateFontWeights()
     this.loadFont()
   }
 
-  private setFontWeights() {
+  public updateSelectedFontTitle() {
+    this.fontWeightsTitleEl.innerText = `Font weights for ${this.state.selectedFont}`
+  }
+
+  private updateFontWeightsList() {
+    this.fontWeightsEl.innerHTML = ''
+
     const [fontWeights] = parsedFonts
       .filter((font) => font.family === this.state.selectedFont)
       .map((font) => font.weights)
 
-    this.fontWeightsTitleEl.innerText = `Font weights for ${this.state.selectedFont}`
-
-    const weightNames = {
-      100: 'Thin',
-      200: 'Extra Light',
-      300: 'Light',
-      400: 'Normal',
-      500: 'Medium',
-      600: 'Semi Bold',
-      700: 'Bold',
-      800: 'Extra Bold',
-      900: 'Black',
-      950: 'Extra Black',
-    }
-
-    type weightOptions = '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | '950'
-    let weight: weightOptions
+    let weight: WeightSizes
 
     for (weight of fontWeights) {
       const fontWeightEl = document.createElement('div')
@@ -153,6 +148,7 @@ export class App {
       weightInputEl.type = 'checkbox'
       weightInputEl.name = `weight-${weight}`
       weightInputEl.id = `weight-${weight}`
+      weightInputEl.setAttribute('data-weight', weight)
 
       const weightLabelEl = document.createElement('label')
       weightLabelEl.className = 'ml-2'
@@ -165,10 +161,32 @@ export class App {
     }
   }
 
+  private updateSelectedFontWeights(event: Event) {
+    const targetEl = event.target as HTMLInputElement
+
+    if (targetEl.type === 'checkbox') {
+      if (!targetEl.dataset.weight) return
+
+      if (targetEl.checked) {
+        this.state.fontWeights.add(targetEl.dataset.weight)
+      } else {
+        this.state.fontWeights.delete(targetEl.dataset.weight)
+      }
+    }
+
+    const sortedWeights = [...this.state.fontWeights].sort().join(';')
+    this.state.selectedWeights = sortedWeights
+  }
+
+  private updateFontWeights() {
+    this.updateSelectedFontTitle()
+    this.updateFontWeightsList()
+  }
+
   private setDefaultFont() {
     this.loadFont()
     this.updateSelectedFontAttribute()
-    this.setFontWeights()
+    this.updateFontWeights()
   }
 
   private async getFontURL() {

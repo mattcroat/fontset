@@ -1,4 +1,5 @@
 import type characterTable from '@root/data/characterTable.json'
+import { weightNames } from '@root/src/utils/helpers'
 
 export interface State {
   characterSet: keyof typeof characterTable
@@ -11,6 +12,7 @@ export interface State {
     }
   }
   fontURL: string
+  fontWeights: Set<WeightSizes>
   lastSelectedFontEl: HTMLElement | null
   queryString: string
   selectedCharacterSet: string
@@ -19,3 +21,9 @@ export interface State {
   showVariableFontsOnly: boolean
   specialCharacters: string
 }
+
+export interface WeightNames {
+  [key: string]: string
+}
+
+export type WeightSizes = keyof typeof weightNames
