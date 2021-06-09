@@ -30,7 +30,6 @@ export class App {
 
   private fontsListEl = document.querySelector('[data-fonts-list]') as HTMLSelectElement
   private fontWeightsEl = document.querySelector('[data-font-weights]') as HTMLDivElement
-  private fontWeightsTitleEl = document.querySelector('[data-font-weights-title]') as HTMLDivElement
   private variableFontsCheckboxEl = document.querySelector('[data-variable-fonts]') as HTMLInputElement
 
   private characterTableEl = document.querySelector('[data-character-table]') as HTMLDivElement
@@ -113,7 +112,7 @@ export class App {
   private setFont(event: Event) {
     const selectedFont = (event.target as HTMLSelectElement).value
     this.updateSelectedFont(selectedFont)
-    this.updateFontWeights()
+    this.updateFontWeightsList()
     this.updateSelectedFontAttribute()
     this.loadFont()
   }
@@ -123,12 +122,8 @@ export class App {
     this.updateFontOptions()
     this.updateSelectedFont(this.fontsListEl.value)
     this.updateSelectedFontAttribute()
-    this.updateFontWeights()
+    this.updateFontWeightsList()
     this.loadFont()
-  }
-
-  public updateSelectedFontTitle() {
-    this.fontWeightsTitleEl.innerText = `Font weights for ${this.state.selectedFont}`
   }
 
   private updateFontWeightsList() {
@@ -178,15 +173,10 @@ export class App {
     this.state.selectedWeights = sortedWeights
   }
 
-  private updateFontWeights() {
-    this.updateSelectedFontTitle()
-    this.updateFontWeightsList()
-  }
-
   private setDefaultFont() {
     this.loadFont()
     this.updateSelectedFontAttribute()
-    this.updateFontWeights()
+    this.updateFontWeightsList()
   }
 
   private async getFontURL() {
