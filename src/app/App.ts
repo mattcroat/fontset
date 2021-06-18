@@ -100,6 +100,9 @@ class FontSelection {
   }
 
   private fontWeights() {
+    // reset font weights
+    this.weights = new Set()
+
     // get array of font weights based on the selected font
     const [fontWeights] = this.parsedFonts
       .filter((font) => font.family === this.selectedFont)
