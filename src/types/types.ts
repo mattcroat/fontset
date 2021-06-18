@@ -13,21 +13,10 @@ export interface Font {
   }[]
 }
 
-export interface State {
-  characterSet: keyof typeof characterTable
-  fontURL: string
-  fontWeights: Set<WeightSizes>
-  lastSelectedFontEl: HTMLElement | null
-  queryString: string
-  selectedCharacterSet: string
-  selectedFont: string
-  selectedWeights: string
-  showVariableFontsOnly: boolean
-  specialCharacters: string
-}
-
 export interface WeightNames {
   [key: string]: string
 }
 
 export type WeightSizes = keyof typeof weightNames
+
+export type CharacterTable = typeof characterTable
