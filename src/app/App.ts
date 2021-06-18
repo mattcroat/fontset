@@ -1,19 +1,8 @@
 import { weightNames } from '@root/src/utils/helpers'
 
-import type { Font, State, WeightSizes } from '@root/src/types'
+import type { CharacterTable, Font, WeightSizes } from '@root/src/types'
 
-// The Google fonts data is parsed from a JSON /data/fonts.json
-// we can download from Google Fonts using the network tab.
-// The character table is parsed from from https://characte-table.netlify.app/.
-// To parse data use `npm run script`.
-import characterTable from '@root/data/characterTable.json'
-import parsedFonts from '@root/data/parsedFonts.json'
-
-const fontSelectionContainerEl = document.querySelector(
-  '[data-font-selection]'
-) as HTMLDivElement
-
-class FontSelection {
+export class SelectFont {
   constructor(
     private containerEl: HTMLDivElement,
     private parsedFonts: Font[]
@@ -179,9 +168,77 @@ class FontSelection {
   }
 }
 
-const fontSelection = new FontSelection(fontSelectionContainerEl, parsedFonts)
-fontSelection.render()
+export class CharacterSet {
+  constructor(
+    private containerEl: HTMLDivElement,
+    private characterTable: CharacterTable
+  ) {}
 
+  private languages() {
+    const containerEl = document.createElement('div')
+    containerEl.className = 'px-24'
+
+    const titleEl = document.createElement('h3')
+    titleEl.className = 'text-4xl italic'
+    titleEl.innerText = '2. Select Character Set'
+
+    const languagesEl = document.createElement('select')
+    languagesEl.className =
+      'w-1/2 px-6 py-4 my-8 text-2xl text-gray-800 border-none rounded-full'
+
+    const languageEl = document.createElement('option')
+    languageEl.text = 'English'
+    languageEl.value = 'English'
+
+    languagesEl.append(languageEl)
+
+    const characterTableEl = document.createElement('div')
+    characterTableEl.className = 'grid gap-8 mt-8 grid-cols-fluid'
+
+    for (const character of this.characterTable['English']) {
+      const characterEl = document.createElement('div')
+      characterEl.className =
+        'flex items-center justify-center h-8 p-8 text-xl bg-indigo-900 rounded'
+      characterEl.innerText = character
+
+      characterTableEl.append(characterEl)
+    }
+
+    containerEl.append(titleEl, languagesEl, characterTableEl)
+
+    return containerEl
+  }
+
+  private specialCharacters() {
+    const specialCharactersEl = document.createElement('div')
+    specialCharactersEl.className = 'my-16'
+
+    const textEl = document.createElement('p')
+    textEl.className = 'text-4xl italic capitalize'
+    textEl.innerText = 'Need special characters?'
+
+    const inputEl = document.createElement('input')
+    inputEl.className =
+      'w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 placeholder-gray-400 border-none rounded-full'
+    inputEl.type = 'text'
+    inputEl.placeholder = 'e.g. diacritics, greek letters, symbols...'
+
+    specialCharactersEl.append(textEl, inputEl)
+
+    return specialCharactersEl
+  }
+
+  public render() {
+    this.containerEl.append(this.languages(), this.specialCharacters())
+  }
+
+  public update() {
+    this.containerEl.innerHTML = ''
+    this.render()
+  }
+}
+
+/*
 export class App {
   private state: State = {
     characterSet: 'English',
@@ -378,3 +435,4 @@ export class App {
     this.downloadLinkEl.href = this.state.queryString
   }
 }
+*/
