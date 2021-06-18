@@ -5,7 +5,12 @@ export interface Font {
   family: string
   category: string
   weights: string[]
-  axes: []
+  axes: {
+    tag: string
+    min: number
+    max: number
+    defaultValue: number
+  }[]
 }
 
 export interface State {
