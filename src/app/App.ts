@@ -1,6 +1,11 @@
-import type { Font, State, WeightSizes } from '@root/src/types'
 import { weightNames } from '@root/src/utils/helpers'
 
+import type { Font, State, WeightSizes } from '@root/src/types'
+
+// The Google fonts data is parsed from a JSON /data/fonts.json
+// we can download from Google Fonts using the network tab.
+// The character table is parsed from from https://characte-table.netlify.app/.
+// To parse data use `npm run script`.
 import characterTable from '@root/data/characterTable.json'
 import parsedFonts from '@root/data/parsedFonts.json'
 
@@ -14,8 +19,12 @@ class FontSelection {
     private parsedFonts: Font[]
   ) {}
 
+  // default font
   selectedFont: string = 'Inter'
+  // toggle variable fonts only
   showVariableFonts: boolean = false
+  // font weights are stored in a set to be unique
+  // so it can be later turned into a sorted array
   weights: Set<WeightSizes> = new Set()
 
   private title() {
@@ -48,6 +57,7 @@ class FontSelection {
         fontEl.text = `${family} (${category})`
         fontEl.value = family
 
+        // selects the default font
         if (family === this.selectedFont) {
           fontEl.selected = true
         }
@@ -90,6 +100,7 @@ class FontSelection {
   }
 
   private fontWeights() {
+    // get array of font weights based on the selected font
     const [fontWeights] = this.parsedFonts
       .filter((font) => font.family === this.selectedFont)
       .map((font) => font.weights)
@@ -102,6 +113,9 @@ class FontSelection {
     fontWeightsEl.className =
       'grid grid-flow-col grid-rows-3 mx-auto text-xl text-left gap-4'
 
+    // using event delegation we can keep track of
+    // what font weight has been checked and unchecked
+    // to be added or removed from the weights set
     fontWeightsEl.onchange = (event: Event) => {
       const targetEl = event.target as HTMLInputElement
 
@@ -118,6 +132,11 @@ class FontSelection {
 
     let weight: WeightSizes
 
+    // <div>
+    //  <input type="checkbox" name="weight-100" ... />
+    //  <label for="weight-100" ...>100 (Thin)</label>
+    // </div>
+    // ...
     for (weight of fontWeights) {
       const divEl = document.createElement('div')
 
