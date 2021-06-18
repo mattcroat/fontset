@@ -28,58 +28,16 @@
     </section>
 
     <main class="text-center">
-      <section class="px-24 mt-24">
-        <h3 class="text-4xl italic">1. Select Google font</h3>
-        <select
-          class="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full"
-          data-fonts-list
-        ></select>
-        <div class="mt-8 space-x-2 text-xl">
-          <input
-            class="p-2 rounded"
-            type="checkbox"
-            id="variable-fonts"
-            name="variable-fonts"
-            data-variable-fonts
-          />
-          <label for="variable-fonts">Show variable fonts only</label>
-        </div>
-        <div
-          class="p-4 mx-auto my-16 capitalize border border-indigo-500 rounded max-w-max"
-        >
-          <div
-            class="grid grid-flow-col grid-rows-3 mx-auto text-xl text-left gap-4"
-            data-font-weights
-          ></div>
-        </div>
+      <section class="px-24 mt-24" data-section="select-font">
+        <!-- Select Font -->
       </section>
-
-      <section class="px-24 mt-24" data-font-selection></section>
 
       <section
         class="py-16 mt-24 bg-gradient-to-r from-indigo-600 to-blue-600"
         style="clip-path: polygon(0 0, 100% 2%, 100% 100%, 0 98%)"
+        data-section="character-set"
       >
-        <div class="px-24">
-          <h3 class="text-4xl italic">2. Select Character Set</h3>
-          <select
-            class="w-1/2 px-6 py-4 my-8 text-2xl text-gray-800 border-none rounded-full"
-          >
-            <option value="English">English</option>
-          </select>
-          <div
-            class="grid gap-8 mt-8 grid-cols-fluid"
-            data-character-table
-          ></div>
-        </div>
-        <div class="my-16">
-          <p class="text-4xl italic capitalize">Need special characters?</p>
-          <input
-            class="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 placeholder-gray-400 border-none rounded-full"
-            type="text"
-            placeholder="e.g. diacritics, greek letters, symbols..."
-          />
-        </div>
+        <!-- Character set -->
       </section>
 
       <section class="px-24 pb-16 my-24">
