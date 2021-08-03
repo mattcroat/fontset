@@ -1,5 +1,5 @@
-import type characterTable from '@root/src/data/character-table.json'
-import type { weightNames } from '@root/src/utils/helpers'
+import type characterTable from '@root/data/characterTable.json'
+import { weightNames } from '@root/src/utils/helpers'
 
 export interface Font {
   family: string
@@ -11,6 +11,10 @@ export interface Font {
     max: number
     defaultValue: number
   }[]
+}
+
+export interface WeightNames {
+  [key: string]: string
 }
 
 export type WeightSizes = keyof typeof weightNames

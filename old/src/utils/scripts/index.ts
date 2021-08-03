@@ -10,9 +10,7 @@ class Fonts {
   }
 
   public getVariableFonts() {
-    const variableFonts = this.googleFonts
-      .filter((font) => font.axes.length > 0)
-      .map((font) => font.family)
+    const variableFonts = this.googleFonts.filter((font) => font.axes.length > 0).map((font) => font.family)
 
     return variableFonts
   }

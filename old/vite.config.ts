@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
 import path from 'path'
 
 export default defineConfig({
@@ -8,5 +7,4 @@ export default defineConfig({
       '@root': path.resolve(__dirname, ''),
     },
   },
-  plugins: [reactRefresh()],
 })

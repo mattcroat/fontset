@@ -1,4 +1,6 @@
-export const weightNames = {
+import type { WeightNames } from '@root/src/types'
+
+export const weightNames: WeightNames = {
   '100': 'Thin',
   '200': 'Extra Light',
   '300': 'Light',
