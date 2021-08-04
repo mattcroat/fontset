@@ -18,7 +18,7 @@ export function App() {
     <>
       <section className="px-24 mt-16 text-center">
         <h1 className="text-2xl">Fontset</h1>
-        <h2 className="mt-8 max-w-screen-md mx-auto text-6xl leading-tight">
+        <h2 className="max-w-screen-md mx-auto mt-8 text-6xl leading-tight">
           Generate a tiny Google font to self-host.
         </h2>
         <a
@@ -34,6 +34,7 @@ export function App() {
           <span className="block text-4xl italic">1. Select Google Font</span>
           <select
             onChange={(e) => setSelectedFont(e.target.value)}
+            value={selectedFont}
             className="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full"
             name="font"
             id="font"
@@ -61,16 +62,24 @@ export function App() {
               name="variable"
               id="variable"
               checked={variable}
-              onChange={() => setVariable(!variable)}
+              onChange={() => {
+                setVariable((variable) => {
+                  const isVariable = !variable
+                  isVariable
+                    ? setSelectedFont('Alegreya')
+                    : setSelectedFont('ABeeZee')
+                  return isVariable
+                })
+              }}
             />
           </div>
           <div className="mt-8">
             <select
-              className="text-black rounded w-1/2 h-80"
+              className="w-1/2 text-black rounded h-80"
               name="weights"
               id="weights"
               multiple={true}
-              disabled={weights?.length < 1 && true}
+              disabled={!selectedFont || (weights?.length < 1 && true)}
             >
               {weights?.map((weight, index) => (
                 <option
