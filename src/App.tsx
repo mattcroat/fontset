@@ -9,9 +9,9 @@ import type { WeightSizes } from './types'
 export function App() {
   const [selectedFont, setSelectedFont] = useState<string>('Alegreya')
   const [variable, setVariable] = useState<boolean>(true)
-  // const [weights, setWeights] = useState<Set<any>>(new Set())
+  const [weights, setWeights] = useState<string[]>([])
 
-  const weights = fonts.find(({ family }) => family === selectedFont)
+  const fontWeights = fonts.find(({ family }) => family === selectedFont)
     ?.weights as WeightSizes[]
 
   return (
@@ -75,13 +75,18 @@ export function App() {
           </div>
           <div className="mt-8">
             <select
+              onChange={(event) =>
+                setWeights(
+                  [...event.target.selectedOptions].map(({ value }) => value)
+                )
+              }
+              value={weights}
               className="w-1/2 text-black rounded h-80"
               name="weights"
               id="weights"
               multiple={true}
-              disabled={!selectedFont || (weights?.length < 1 && true)}
             >
-              {weights?.map((weight, index) => (
+              {fontWeights?.map((weight, index) => (
                 <option
                   className={`py-2 ${index % 2 === 0 && 'bg-gray-100'}`}
                   key={weight}
