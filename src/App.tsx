@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import characterTable from '@root/src/data/character-table.json'
+import characters from '@root/src/data/character-table.json'
 import fonts from '@root/src/data/fonts.json'
 
 import { weightNames } from '@root/src/utils/helpers'
@@ -9,7 +9,9 @@ import type { WeightSizes } from './types'
 export function App() {
   const [selectedFont, setSelectedFont] = useState<string>('Alegreya')
   const [variable, setVariable] = useState<boolean>(true)
-  const [weights, setWeights] = useState<string[]>([])
+  const [weights, setWeights] = useState<string[]>(['400'])
+  const [language, setLanguage] = useState<string>('English')
+  const [specialCharacters, setSpecialCharacters] = useState<string>('')
 
   useEffect(() => {
     const linkEl = document.createElement('link')
@@ -112,13 +114,41 @@ export function App() {
           </div>
         </section>
 
-        <section
-          className="py-16 mt-24 bg-gradient-to-r from-indigo-600 to-blue-600"
-          style={{
-            clipPath: 'polygon(0 0, 100% 2%, 100% 100%, 0 98%)',
-          }}
-        >
+        <section className="py-16 mt-24 bg-gradient-to-r from-indigo-600 to-blue-600 clip-slant">
           <span className="block text-4xl italic">2. Select Character Set</span>
+          <div className="px-24">
+            <select
+              onChange={(e) => setLanguage(e.target.value)}
+              value={language}
+              className="w-1/2 px-6 py-4 my-8 text-2xl text-gray-800 border-none rounded-full"
+              name="characters"
+              id="characters"
+            >
+              <option value="English">English</option>
+            </select>
+            <div className="grid gap-8 mt-8 grid-cols-fluid">
+              {characters['English'].map((character) => (
+                <div
+                  key={character}
+                  className="flex items-center justify-center h-8 p-8 text-xl bg-indigo-900 rounded"
+                >
+                  {character}
+                </div>
+              ))}
+            </div>
+            <div className="my-16">
+              <p className="text-4xl italic capitalize">
+                Need special characters?
+              </p>
+              <input
+                onChange={(e) => setSpecialCharacters(e.target.value)}
+                value={specialCharacters}
+                className="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 placeholder-gray-400 border-none rounded-full"
+                type="text"
+                placeholder="e.g. diacritics, greek letters, symbols..."
+              />
+            </div>
+          </div>
         </section>
 
         <section className="px-24 pb-16 my-24">
@@ -129,6 +159,7 @@ export function App() {
               contentEditable={true}
               suppressContentEditableWarning={true}
               spellCheck={false}
+              style={{ fontFamily: selectedFont }}
             >
               The quick brown fox jumps over the lazy dog.
             </p>
