@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import characterTable from '@root/src/data/character-table.json'
 import fonts from '@root/src/data/fonts.json'
@@ -11,7 +11,20 @@ export function App() {
   const [variable, setVariable] = useState<boolean>(true)
   const [weights, setWeights] = useState<string[]>([])
 
-  const fontWeights = fonts.find(({ family }) => family === selectedFont)
+  useEffect(() => {
+    const linkEl = document.createElement('link')
+    linkEl.rel = 'stylesheet'
+    linkEl.href = `https://fonts.googleapis.com/css2?family=${selectedFont}:wght@${weights.join(
+      ';'
+    )}&display=swap`
+    document.head.append(linkEl)
+
+    return function cleanup() {
+      linkEl.remove()
+    }
+  }, [selectedFont, weights])
+
+  const selectedWeights = fonts.find(({ family }) => family === selectedFont)
     ?.weights as WeightSizes[]
 
   return (
@@ -86,7 +99,7 @@ export function App() {
               id="weights"
               multiple={true}
             >
-              {fontWeights?.map((weight, index) => (
+              {selectedWeights?.map((weight, index) => (
                 <option
                   className={`py-2 ${index % 2 === 0 && 'bg-gray-100'}`}
                   key={weight}
