@@ -6,6 +6,51 @@ import fonts from '@root/src/data/fonts.json'
 import { weightNames } from '@root/src/utils/helpers'
 import type { WeightSizes } from './types'
 
+function hasItalics(weights: string[]) {
+  return !!weights.filter((weight) => weight.match('i'))
+}
+
+function formatWeights(weights: string[]) {
+  if (!hasItalics(weights)) return weights.sort()
+
+  return weights
+    .map((weight) => {
+      return weight.includes('i')
+        ? `1,${weight}`.replace('i', '')
+        : `0,${weight}`
+    })
+    .sort()
+    .join(';')
+}
+
+async function parseFontURL() {
+  const response = await fetch(
+    'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&text=Hello&display=swap'
+  )
+  const data = await response.text()
+
+  const parsedFonts = data
+    .split('@font-face')
+    .filter((font) => font.includes('font-family'))
+    .map((font) => {
+      const url = font
+        .split(';')
+        .filter((font) => font.includes('src'))
+        .map((font) => font.slice(font.indexOf('(') + 1, font.indexOf(')')))
+        .join('')
+
+      const weight = font
+        .split(';')
+        .filter((font) => font.includes('weight'))
+        .map((font) => font.split(':')[1].trim())
+        .join('')
+
+      return { url, weight }
+    })
+
+  return parsedFonts
+}
+
 export function App() {
   const [selectedFont, setSelectedFont] = useState<string>('Alegreya')
   const [variable, setVariable] = useState<boolean>(true)
@@ -14,11 +59,16 @@ export function App() {
   const [specialCharacters, setSpecialCharacters] = useState<string>('')
 
   useEffect(() => {
+    const italics = hasItalics(weights) ? ':ital,wght@' : ':wght@'
+    const baseUrl = 'https://fonts.googleapis.com/css2?family='
+    const wght = formatWeights(weights)
+    const text = '&text=hello'
+    const display = '&display=swap'
+
     const linkEl = document.createElement('link')
     linkEl.rel = 'stylesheet'
-    linkEl.href = `https://fonts.googleapis.com/css2?family=${selectedFont}:wght@${weights.join(
-      ';'
-    )}&display=swap`
+    linkEl.href = `${baseUrl}${selectedFont}${italics}${wght}${text}${display}`
+
     document.head.append(linkEl)
 
     return function cleanup() {
@@ -90,9 +140,9 @@ export function App() {
           </div>
           <div className="mt-8">
             <select
-              onChange={(event) =>
+              onChange={(e) =>
                 setWeights(
-                  [...event.target.selectedOptions].map(({ value }) => value)
+                  [...e.target.selectedOptions].map(({ value }) => value)
                 )
               }
               value={weights}
