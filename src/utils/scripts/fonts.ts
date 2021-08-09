@@ -34,7 +34,7 @@ class Fonts {
       const { familyMetadataList } = JSON.parse(fonts)
       return familyMetadataList
     } catch (error) {
-      console.error(`Ooops! ${error}`)
+      throw new Error(`💩 Something went wrong: ${error}`)
     }
   }
 
@@ -44,7 +44,7 @@ class Fonts {
       fs.writeFileSync(outputPath, fonts, 'utf8')
       console.log(`Success! 👍 Wrote to ${outputPath}.`)
     } catch (error) {
-      console.error(`Ooops! 💩 ${error}`)
+      throw new Error(`💩 Something went wrong: ${error}`)
     }
   }
 }
