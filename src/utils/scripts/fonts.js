@@ -1,15 +1,12 @@
-import fs from 'fs'
+const fs = require('fs')
 
 class Fonts {
-  private googleFonts: any[]
-  private filePath: string
-
-  constructor(filePath: string) {
+  constructor(filePath) {
     this.filePath = filePath
-    this.googleFonts = this.readJSON(this.filePath)
+    this.googleFonts = this.#readJSON(this.filePath)
   }
 
-  public getVariableFonts() {
+  getVariableFonts() {
     const variableFonts = this.googleFonts
       .filter((font) => font.axes.length > 0)
       .map((font) => font.family)
@@ -17,7 +14,7 @@ class Fonts {
     return variableFonts
   }
 
-  public parseFonts() {
+  parseFonts() {
     const parsedFonts = this.googleFonts.map((font) => ({
       family: font.family,
       category: font.category,
@@ -28,7 +25,7 @@ class Fonts {
     return parsedFonts
   }
 
-  private readJSON(filePath: string) {
+  #readJSON(filePath) {
     try {
       const fonts = fs.readFileSync(filePath, 'utf-8')
       const { familyMetadataList } = JSON.parse(fonts)
@@ -38,7 +35,7 @@ class Fonts {
     }
   }
 
-  public writeJSON(outputPath: string, data: any) {
+  writeJSON(outputPath, data) {
     try {
       const fonts = JSON.stringify(data, null, 2)
       fs.writeFileSync(outputPath, fonts, 'utf8')
