@@ -1,7 +1,11 @@
 # Font Subsetting for Everyone
 
-Why should you care? I wrote a detailed post on [Using Fonts on The Web](https://joyofcode.xyz/using-fonts-on-the-web). The short answer is that you can generate, and self-host a tiny version of a variable font hosted on [Google Fonts](https://fonts.google.com/), without having to reach for any packages.
+**Fontset** uses the **Google Fonts API**, to **subset** a font based on characters you need, creating a tiny font to self-host.
 
-A lot of tools that claim to do font subsetting do a poor job, when it comes to variable fonts, removing the variations from them.
+> Subsetting fonts is the process of taking a large font file as input and creating other smaller files, with fewer characters or OpenType features. — [Creating Font Subsets](https://markoskon.com/creating-font-subsets/)
 
-Fontset uses the Google Fonts API, to subset a font based on characters, leaving only what you require. You don't have to install anything, or understand [unicode ranges](https://developer.mozilla.org/en-US/docs/Web/CSS/%40font-face/unicode-range). The downside is that you're limited to Google Fonts.
+You don't have to install anything, or understand [unicode ranges](https://developer.mozilla.org/en-US/docs/Web/CSS/%40font-face/unicode-range) but the downside is that you're limited to **Google Fonts**.
+
+The **Google Fonts** data is parsed from a **JSON** file through the clever use of the network tab and the **character table** is parsed from [Character Table](https://character-table.netlify.app/).
+
+I wrote a detailed post on [using fonts on the web](https://joyofcode.xyz/using-fonts-on-the-web) explaining everything in great detail.
