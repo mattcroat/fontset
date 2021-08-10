@@ -28,10 +28,21 @@ async function getPages() {
 async function characterTable(pages) {
   if (!pages) throw new Error('💩 Missing argument `pages`')
 
-  const characterTable = {}
+  let currentPage = 0
+  let characterTable = {}
 
   for (const { name, url } of pages) {
-    const response = await fetch(url)
+    const pageCount = pages.length
+
+    currentPage += 1
+    console.log(`🧙‍♂️ [${currentPage}/${pageCount}] Parsing ${url}...`)
+
+    const response = await fetch(encodeURI(url))
+
+    if (!response.ok) {
+      throw new Error(`💩 Something went wrong: ${error}`)
+    }
+
     const page = await response.text()
     const html = parse(page)
     const characters = html.querySelectorAll('.character')
@@ -42,6 +53,8 @@ async function characterTable(pages) {
     }
 
     characterTable[name] = languageCharacters
+
+    console.log(`✅ Done.`)
   }
 
   return characterTable
@@ -64,3 +77,11 @@ async function writeJSON(file, data) {
     throw new Error(`💩 Something went wrong: ${error}`)
   }
 }
+
+async function outputCharacterTable() {
+  const pages = await getPages()
+  const table = await characterTable(pages)
+  writeJSON('src/data/character-table.json', table)
+}
+
+outputCharacterTable()
