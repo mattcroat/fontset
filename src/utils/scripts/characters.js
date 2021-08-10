@@ -1,6 +1,6 @@
-const fs = require('fs')
 const fetch = require('node-fetch')
 const { parse } = require('node-html-parser')
+const { writeJSON } = require('./json')
 
 async function getPages() {
   const pages = []
@@ -58,24 +58,6 @@ async function characterTable(pages) {
   }
 
   return characterTable
-}
-
-async function writeJSON(file, data) {
-  if (!file || !file.endsWith('.json')) {
-    throw new Error(`💩 ${file} isn't *.json`)
-  }
-
-  if (!data) {
-    throw new Error('💩 Missing argument `data`')
-  }
-
-  try {
-    const serializedData = JSON.stringify(data, null, 2)
-    fs.writeFileSync(file, serializedData, 'utf8')
-    console.log(`Success! 👍 Wrote to ${file}.`)
-  } catch (error) {
-    throw new Error(`💩 Something went wrong: ${error}`)
-  }
 }
 
 async function outputCharacterTable() {
