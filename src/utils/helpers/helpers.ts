@@ -1,6 +1,8 @@
-import characters from '@root/src/data/character-table.json'
+import languages from '@root/src/data/character-table.json'
 
-export const weightNames = {
+import type { LanguageType, WeightType } from '@root/src/types'
+
+export const weightLabel = {
   '100': 'Thin',
   '200': 'Extra Light',
   '300': 'Light',
@@ -82,13 +84,24 @@ export async function parseURL(url: string) {
   }
 }
 
-export function createLink(selectedFont, weights, language, specialCharacters) {
+function characterSet(specialCharacters: string, language: LanguageType) {
+  if (!specialCharacters) {
+    return `&text=${languages[language].join('')}`
+  }
+
+  return `&text=${languages[language].join('') + specialCharacters}`
+}
+
+export function createLink(
+  selectedFont: string,
+  weights: WeightType[],
+  language: LanguageType,
+  specialCharacters: string
+) {
   const baseUrl = 'https://fonts.googleapis.com/css2?family='
   const style = hasItalics(weights) ? ':ital,wght@' : ':wght@'
   const wght = formatWeights(weights)
-  const text = specialCharacters
-    ? `&text=${characters[language].join('') + specialCharacters}`
-    : `&text=${characters[language].join('')}`
+  const text = characterSet(specialCharacters, language)
   const display = '&display=swap'
   const url = `${baseUrl}${selectedFont}${style}${wght}${text}${display}`
 

@@ -1,18 +1,12 @@
-import type characterTable from '@root/src/data/character-table.json'
-import type { weightNames } from '@root/src/utils/helpers'
+import type languages from '@root/src/data/character-table.json'
+import type { weightLabel } from '@root/src/utils/helpers'
 
-export interface Font {
-  family: string
-  category: string
-  weights: string[]
-  axes: {
-    tag: string
-    min: number
-    max: number
-    defaultValue: number
-  }[]
+export type WeightType = keyof typeof weightLabel
+
+export type LanguageType = keyof typeof languages
+
+export type DownloadType = {
+  style: string
+  url: string
+  weight: string
 }
-
-export type WeightSizes = keyof typeof weightNames
-
-export type CharacterTable = typeof characterTable
