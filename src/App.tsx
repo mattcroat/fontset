@@ -16,7 +16,7 @@ export function App() {
   const [weights, setWeights] = useState<WeightType[]>(['400'])
   const [language, setLanguage] = useState<LanguageType>('English')
   const [specialCharacters, setSpecialCharacters] = useState<string>('')
-  const [download, setDownload] = useState<DownloadType[]>()
+  const [download, setDownload] = useState<DownloadType[] | null>(null)
   const [showDownload, setShowDownload] = useState<boolean>(false)
 
   useEffect(() => {

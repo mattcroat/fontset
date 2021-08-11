@@ -1,9 +1,18 @@
 import React from 'react'
 
 import fonts from '@root/src/data/fonts.json'
+import { weightLabel } from '@root/src/utils/helpers'
 
-import { weightNames } from '@root/src/utils/helpers'
-import type { WeightSizes } from '@root/src/types'
+import type { WeightType } from '@root/src/types'
+
+interface FontProps {
+  selectedFont: string
+  setSelectedFont: React.Dispatch<React.SetStateAction<string>>
+  variable: boolean
+  setVariable: React.Dispatch<React.SetStateAction<boolean>>
+  weights: WeightType[]
+  setWeights: React.Dispatch<React.SetStateAction<WeightType[]>>
+}
 
 export function Font({
   selectedFont,
@@ -12,15 +21,18 @@ export function Font({
   setVariable,
   weights,
   setWeights,
-}) {
+}: FontProps) {
   const selectedWeights = fonts.find(({ family }) => family === selectedFont)
-    ?.weights as WeightSizes[]
+    ?.weights as WeightType[]
 
   return (
     <section className="px-24 mt-24">
       <span className="block text-4xl italic">1. Select Google Font</span>
       <select
-        onChange={(e) => setSelectedFont(e.target.value)}
+        onChange={(e) => {
+          setWeights(['400'])
+          setSelectedFont(e.target.value)
+        }}
         value={selectedFont}
         className="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full"
         name="font"
@@ -62,9 +74,12 @@ export function Font({
       </div>
       <div className="mt-8">
         <select
-          onChange={(e) =>
-            setWeights([...e.target.selectedOptions].map(({ value }) => value))
-          }
+          onChange={(e) => {
+            const selectedWeights = [...e.target.selectedOptions].map(
+              ({ value }) => value
+            ) as WeightType[]
+            setWeights(selectedWeights)
+          }}
           value={weights}
           className="w-1/2 text-black rounded h-80"
           name="weights"
@@ -77,7 +92,7 @@ export function Font({
               key={weight}
               value={weight}
             >
-              {weight} ({weightNames[weight]})
+              {weight} ({weightLabel[weight]})
             </option>
           ))}
         </select>

@@ -1,6 +1,11 @@
 import React from 'react'
 
-export function Preview({ selectedFont }) {
+interface PreviewProps {
+  selectedFont: string
+  setShowDownload: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function Preview({ selectedFont, setShowDownload }: PreviewProps) {
   return (
     <section className="px-24 pb-16 my-24">
       <h3 className="text-4xl italic">3. Editable Preview</h3>
@@ -25,7 +30,10 @@ export function Preview({ selectedFont }) {
       >
         <path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z" />
       </svg>
-      <button className="inline-block px-6 py-4 mt-16 text-2xl capitalize transition-all transform rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1">
+      <button
+        onClick={() => setShowDownload(true)}
+        className="inline-block px-6 py-4 mt-16 text-2xl capitalize transition-all rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1"
+      >
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-600">
           May I have the font, pretty please
         </span>

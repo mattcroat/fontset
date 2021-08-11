@@ -1,28 +1,44 @@
 import React from 'react'
 
-import characters from '@root/src/data/character-table.json'
+import languages from '@root/src/data/character-table.json'
+
+import type { LanguageType } from '@root/src/types'
+
+interface CharactersProps {
+  language: LanguageType
+  setLanguage: React.Dispatch<React.SetStateAction<LanguageType>>
+  specialCharacters: string
+  setSpecialCharacters: React.Dispatch<React.SetStateAction<string>>
+}
 
 export function Characters({
   language,
   setLanguage,
   specialCharacters,
   setSpecialCharacters,
-}) {
+}: CharactersProps) {
   return (
     <section className="py-16 mt-24 bg-gradient-to-r from-indigo-600 to-blue-600 clip-slant">
       <span className="block text-4xl italic">2. Select Character Set</span>
       <div className="px-24">
         <select
-          onChange={(e) => setLanguage(e.target.value)}
+          onChange={(e) => {
+            const selectedLanguage = e.target.value as LanguageType
+            setLanguage(selectedLanguage)
+          }}
           value={language}
           className="w-1/2 px-6 py-4 my-8 text-2xl text-gray-800 border-none rounded-full"
           name="characters"
           id="characters"
         >
-          <option value="English">English</option>
+          {Object.keys(languages).map((language) => (
+            <option key={language} value={language}>
+              {language}
+            </option>
+          ))}
         </select>
         <div className="grid gap-8 mt-8 grid-cols-fluid">
-          {characters['English'].map((character) => (
+          {languages[language].map((character) => (
             <div
               key={character}
               className="flex items-center justify-center h-8 p-8 text-xl bg-indigo-900 rounded"
