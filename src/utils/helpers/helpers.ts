@@ -1,3 +1,5 @@
+import { downloadZip } from 'client-zip'
+
 import languages from '@root/src/data/character-table.json'
 
 import type { LanguageType, WeightType } from '@root/src/types'
@@ -114,4 +116,20 @@ export function createLink(
   document.head.append(linkEl)
 
   return { url, linkEl }
+}
+
+export async function zip(data: any[]) {
+  const blob = await downloadZip(data).blob()
+  const url = URL.createObjectURL(blob)
+  return url
+}
+
+export async function createDownload(selectedFont: string, url: string) {
+  const data = await parseURL(url)
+  const fonts = data.map(({ style, url, weight }) => ({
+    name: `${selectedFont}-${weight}-${style}`,
+    input: url,
+  }))
+  const download = zip(fonts)
+  return download
 }

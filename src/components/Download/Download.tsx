@@ -1,27 +1,32 @@
 import React from 'react'
 
-import type { DownloadType } from '@root/src/types'
-
 interface DownloadProps {
-  download: DownloadType[] | null
+  downloadUrl: string
   selectedFont: string
 }
 
-export function Download({ download, selectedFont }: DownloadProps) {
+export function Download({ selectedFont, downloadUrl }: DownloadProps) {
   return (
     <section className="px-24 pb-16 my-24">
-      <ol className="max-w-sm mx-auto space-y-4">
-        {download?.map(({ style, url, weight }) => (
-          <li key={weight}>
-            <a
-              className="bg-indigo-900 text-white p-4 rounded-full text-xl hover:shadow-md hover:-translate-y-1 transition-all block"
-              href={url}
-            >
-              Download {selectedFont} {weight} ({style})
-            </a>
-          </li>
-        ))}
-      </ol>
+      <svg
+        className="w-24 h-24 mx-auto mt-16 text-blue-400"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+      >
+        <path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z" />
+      </svg>
+      <a
+        href={downloadUrl}
+        download={`${selectedFont}.zip`}
+        className="inline-block px-6 py-4 mt-16 text-2xl capitalize transition-all rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1"
+      >
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-600">
+          May I have the font, pretty please
+        </span>
+      </a>
     </section>
   )
 }
