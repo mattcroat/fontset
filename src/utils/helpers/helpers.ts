@@ -86,10 +86,13 @@ export async function parseURL(url: string) {
 
 function characterSet(specialCharacters: string, language: LanguageType) {
   if (!specialCharacters) {
-    return `&text=${languages[language].join('')}`
+    return `&text=${encodeURIComponent(languages[language].join(''))}`
   }
 
-  return `&text=${languages[language].join('') + specialCharacters}`
+  return `&text=${
+    encodeURIComponent(languages[language].join('')) +
+    encodeURIComponent(specialCharacters)
+  }`
 }
 
 export function createLink(
