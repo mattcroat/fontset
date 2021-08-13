@@ -126,10 +126,12 @@ export async function zip(data: any[]) {
 
 export async function createDownload(selectedFont: string, url: string) {
   const data = await parseURL(url)
-  const fonts = data.map(({ style, url, weight }) => ({
-    name: `${selectedFont}-${weight}-${style}`,
-    input: url,
-  }))
+  const fonts = await Promise.all(
+    data.map(async ({ style, url, weight }) => ({
+      name: `${selectedFont}-${weight}-${style}.woff2`,
+      input: await fetch(url).then((url) => url.blob()),
+    }))
+  )
   const download = zip(fonts)
   return download
 }
