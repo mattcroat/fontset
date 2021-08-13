@@ -30,7 +30,7 @@ export function Font({
       <span className="block text-4xl italic">1. Select Google Font</span>
       <select
         onChange={(e) => {
-          setWeights(['400'])
+          setWeights([])
           setSelectedFont(e.target.value)
         }}
         value={selectedFont}

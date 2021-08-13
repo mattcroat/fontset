@@ -13,12 +13,14 @@ import type { LanguageType, WeightType } from './types'
 export function App() {
   const [selectedFont, setSelectedFont] = useState<string>('Alegreya')
   const [variable, setVariable] = useState<boolean>(true)
-  const [weights, setWeights] = useState<WeightType[]>(['400'])
+  const [weights, setWeights] = useState<WeightType[]>([])
   const [language, setLanguage] = useState<LanguageType>('English')
   const [specialCharacters, setSpecialCharacters] = useState<string>('')
   const [downloadUrl, setDownloadUrl] = useState<string>('')
 
   useEffect(() => {
+    if (!selectedFont || weights.length < 1) return
+
     const { url, linkEl } = createLink(
       selectedFont,
       weights,
@@ -31,7 +33,7 @@ export function App() {
     return function cleanup() {
       linkEl.remove()
     }
-  }, [selectedFont, specialCharacters, weights])
+  }, [language, selectedFont, specialCharacters, weights])
 
   return (
     <>
