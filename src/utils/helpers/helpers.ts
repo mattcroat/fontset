@@ -1,8 +1,6 @@
 import { downloadZip } from 'client-zip'
 
-import languages from '@root/src/data/character-table.json'
-
-import type { LanguageType, WeightType } from '@root/src/types'
+import type { WeightType } from '@root/src/types'
 
 export const weightLabel = {
   '100': 'Thin',
@@ -31,10 +29,14 @@ export function hasItalics(weights: string[]) {
   return weights.filter((weight) => weight.match('i')).length > 0
 }
 
+function styles(weights: WeightType[]) {
+  return hasItalics(weights) ? ':ital,wght@' : ':wght@'
+}
+
 export function formatWeights(weights: string[]) {
   if (!hasItalics(weights)) return weights.sort().join(';')
 
-  const formatWeights = weights
+  return weights
     .map((weight) => {
       return weight.includes('i')
         ? `1,${weight}`.replace('i', '')
@@ -42,80 +44,49 @@ export function formatWeights(weights: string[]) {
     })
     .sort()
     .join(';')
+}
 
-  return formatWeights
+async function fetched(url: string, options = {}) {
+  const response = await fetch(url, options)
+  const result = await response.text()
+
+  if (!response.ok) {
+    throw new Error(`💩 Something went wrong fetching ${url}`)
+  }
+
+  return result
 }
 
 export async function parseURL(url: string) {
-  try {
-    const response = await fetch(url)
-    const data = await response.text()
+  const charSets = await fetched(url)
 
-    if (!response.ok) {
-      throw new Error('💩 Could not get resource')
-    }
-
-    const fonts = data
-      .split('@font-face')
-      .filter((font) => font.includes('font-family'))
-      .map((font) => {
-        const style = font
-          .split(';')
-          .filter((font) => font.includes('style'))
-          .map((font) => font.split(':')[1].trim())
-          .join('')
-
-        const url = font
-          .split(';')
-          .filter((font) => font.includes('src'))
-          .map((font) => font.slice(font.indexOf('(') + 1, font.indexOf(')')))
-          .join('')
-
-        const weight = font
-          .split(';')
-          .filter((font) => font.includes('weight'))
-          .map((font) => font.split(':')[1].trim())
-          .join('')
-
-        return { style, url, weight }
-      })
-
-    return fonts
-  } catch (error) {
-    throw new Error(`💩 Something went wrong: ${error}`)
-  }
+  return charSets.match(/(\/\* )(.|\n\r|\r|\n)*?}/g)?.map((charSet) => ({
+    characterSet: charSet.match(/\/\* (.*) \*\//)![1],
+    fontFamily: charSet.match(/font-family: '(\w+)'/)![1],
+    fontStyle: charSet.match(/font-style: (\w+)/)![1],
+    fontWeight: charSet.match(/font-weight: (\w+)/)![1],
+    src: charSet.match(/src: url\((.*?)\)/)![1],
+    unicodeRange: charSet.match(/unicode-range: (.*);/)![1],
+  }))
 }
 
-function characterSet(specialCharacters: string, language: LanguageType) {
-  if (!specialCharacters) {
-    return `&text=${encodeURIComponent(languages[language].join(''))}`
-  }
-
-  return `&text=${
-    encodeURIComponent(languages[language].join('')) +
-    encodeURIComponent(specialCharacters)
-  }`
-}
-
-export function createLink(
-  selectedFont: string,
-  weights: WeightType[],
-  language: LanguageType,
-  specialCharacters: string
-) {
+export function fontRequest(selectedFont: string, weights: WeightType[]) {
   const baseUrl = 'https://fonts.googleapis.com/css2?family='
-  const style = hasItalics(weights) ? ':ital,wght@' : ':wght@'
-  const wght = formatWeights(weights)
-  const text = characterSet(specialCharacters, language)
+  const style = styles(weights)
+  const weight = formatWeights(weights)
   const display = '&display=swap'
-  const url = `${baseUrl}${selectedFont}${style}${wght}${text}${display}`
 
+  return `${baseUrl}${selectedFont}${style}${weight}${display}`
+}
+
+export function createLink(url: string) {
   const linkEl = document.createElement('link')
   linkEl.rel = 'stylesheet'
   linkEl.href = url
+
   document.head.append(linkEl)
 
-  return { url, linkEl }
+  return linkEl
 }
 
 export async function zip(data: any[]) {

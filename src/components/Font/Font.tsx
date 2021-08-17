@@ -8,8 +8,6 @@ import type { WeightType } from '@root/src/types'
 interface FontProps {
   selectedFont: string
   setSelectedFont: React.Dispatch<React.SetStateAction<string>>
-  variable: boolean
-  setVariable: React.Dispatch<React.SetStateAction<boolean>>
   weights: WeightType[]
   setWeights: React.Dispatch<React.SetStateAction<WeightType[]>>
 }
@@ -17,8 +15,6 @@ interface FontProps {
 export function Font({
   selectedFont,
   setSelectedFont,
-  variable,
-  setVariable,
   weights,
   setWeights,
 }: FontProps) {
@@ -26,53 +22,32 @@ export function Font({
     ?.weights as WeightType[]
 
   return (
-    <section className="px-24 mt-24">
-      <span className="block text-4xl italic">1. Select Google Font</span>
-      <select
-        onChange={(e) => {
-          setWeights([])
-          setSelectedFont(e.target.value)
-        }}
-        value={selectedFont}
-        className="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full"
-        name="font"
-        id="font"
-      >
-        {!variable &&
-          fonts.map(({ category, family }) => (
+    <section className="px-24 mt-24 space-y-8">
+      <div>
+        <span className="block text-4xl italic">1. Select Google Font</span>
+        <select
+          onChange={(e) => {
+            setWeights([])
+            setSelectedFont(e.target.value)
+          }}
+          value={selectedFont}
+          className="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full"
+          name="font"
+          id="font"
+        >
+          {fonts.map(({ category, family }) => (
             <option key={family} value={family}>
               {family} ({category})
             </option>
           ))}
-        {variable &&
-          fonts
-            .filter((family) => family.axes.length > 0)
-            .map(({ category, family }) => (
-              <option key={family} value={family}>
-                {family} ({category})
-              </option>
-            ))}
-      </select>
-      <div className="mt-8 space-x-2 text-xl">
-        <label htmlFor="variable">Variable Fonts</label>
-        <input
-          className="p-2 rounded"
-          type="checkbox"
-          name="variable"
-          id="variable"
-          checked={variable}
-          onChange={() => {
-            setVariable((variable) => {
-              const isVariable = !variable
-              isVariable
-                ? setSelectedFont('Alegreya')
-                : setSelectedFont('ABeeZee')
-              return isVariable
-            })
-          }}
-        />
+        </select>
       </div>
-      <div className="mt-8">
+
+      <div>
+        <span className="block text-2xl italic">Weights</span>
+      </div>
+
+      <div>
         <select
           onChange={(e) => {
             const selectedWeights = [...e.target.selectedOptions].map(
@@ -96,6 +71,10 @@ export function Font({
             </option>
           ))}
         </select>
+      </div>
+
+      <div>
+        <span className="block text-2xl italic">Character Sets</span>
       </div>
     </section>
   )

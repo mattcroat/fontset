@@ -6,14 +6,6 @@ module.exports = {
     fontFamily: {
       sans: ['DM Serif Display'],
     },
-    extend: {
-      gridTemplateColumns: {
-        fluid: 'repeat(auto-fill, minmax(40px, 1fr))',
-      },
-    },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [require('@tailwindcss/forms')],
 }
