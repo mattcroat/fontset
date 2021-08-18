@@ -11,6 +11,15 @@ export type FontType = {
   unicodeRange: string
 }
 
+export type CharacterSetType =
+  | 'cyrillic-ext'
+  | 'cyrillic'
+  | 'greek-ext'
+  | 'greek'
+  | 'vietnamese'
+  | 'latin-ext'
+  | 'latin'
+
 export type DownloadType = {
   name: string
   input: string

@@ -70,6 +70,12 @@ export async function fontParse(url: string) {
   })) as FontType[]
 }
 
+export async function characterSet(url: string) {
+  const charSets = await fontParse(url)
+  // character sets repeat for each weight, so return only unique values
+  return [...new Set(charSets.map(({ characterSet }) => characterSet))]
+}
+
 export function fontRequest(selectedFont: string, weights: WeightType[]) {
   const baseUrl = 'https://fonts.googleapis.com/css2?family='
   const style = styles(weights)

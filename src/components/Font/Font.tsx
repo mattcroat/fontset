@@ -1,24 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { characterSet, weightLabel } from '@root/src/utils/helpers'
 import fonts from '@root/src/data/fonts.json'
-import { weightLabel } from '@root/src/utils/helpers'
 
-import type { WeightType } from '@root/src/types'
+import type { CharacterSetType, WeightType } from '@root/src/types'
 
 interface FontProps {
   selectedFont: string
   setSelectedFont: React.Dispatch<React.SetStateAction<string>>
-  weights: WeightType[]
-  setWeights: React.Dispatch<React.SetStateAction<WeightType[]>>
+  selectedWeights: WeightType[]
+  setSelectedWeights: React.Dispatch<React.SetStateAction<WeightType[]>>
+  selectedCharSet: string[]
+  setSelectedCharSet: React.Dispatch<React.SetStateAction<CharacterSetType[]>>
+  url: string
 }
 
 export function Font({
   selectedFont,
   setSelectedFont,
-  weights,
-  setWeights,
+  selectedWeights,
+  setSelectedWeights,
+  selectedCharSet,
+  setSelectedCharSet,
+  url,
 }: FontProps) {
-  const selectedWeights = fonts.find(({ family }) => family === selectedFont)
+  const [charSets, setCharSets] = useState<string[]>([])
+
+  useEffect(() => {
+    if (!url) return
+    characterSet(url).then(setCharSets)
+  }, [url])
+
+  const weights = fonts.find(({ family }) => family === selectedFont)
     ?.weights as WeightType[]
 
   return (
@@ -27,8 +40,9 @@ export function Font({
         <span className="block text-4xl italic">1. Select Google Font</span>
         <select
           onChange={(e) => {
-            setWeights([])
             setSelectedFont(e.target.value)
+            setSelectedWeights(['400'])
+            setSelectedCharSet(['latin'])
           }}
           value={selectedFont}
           className="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full"
@@ -43,25 +57,22 @@ export function Font({
         </select>
       </div>
 
-      <div>
+      <div className="space-y-4">
         <span className="block text-2xl italic">Weights</span>
-      </div>
-
-      <div>
         <select
           onChange={(e) => {
-            const selectedWeights = [...e.target.selectedOptions].map(
+            const weights = [...e.target.selectedOptions].map(
               ({ value }) => value
             ) as WeightType[]
-            setWeights(selectedWeights)
+            setSelectedWeights(weights)
           }}
-          value={weights}
+          value={selectedWeights}
           className="w-1/2 text-black rounded h-80"
           name="weights"
           id="weights"
           multiple={true}
         >
-          {selectedWeights?.map((weight, index) => (
+          {weights?.map((weight, index) => (
             <option
               className={`py-2 ${index % 2 === 0 && 'bg-gray-100'}`}
               key={weight}
@@ -73,8 +84,31 @@ export function Font({
         </select>
       </div>
 
-      <div>
+      <div className="space-y-4">
         <span className="block text-2xl italic">Character Sets</span>
+        <select
+          onChange={(e) => {
+            const charSets = [...e.target.selectedOptions].map(
+              ({ value }) => value
+            ) as CharacterSetType[]
+            setSelectedCharSet(charSets)
+          }}
+          value={selectedCharSet}
+          className="w-1/2 text-black rounded h-80"
+          name="character-sets"
+          id="character-sets"
+          multiple={true}
+        >
+          {charSets?.map((charSet, index) => (
+            <option
+              className={`py-2 ${index % 2 === 0 && 'bg-gray-100'}`}
+              key={charSet}
+              value={charSet}
+            >
+              {charSet}
+            </option>
+          ))}
+        </select>
       </div>
     </section>
   )

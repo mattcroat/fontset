@@ -1,11 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { createDownload } from '@root/src/utils/helpers'
+
+import type { CharacterSetType } from '@root/src/types'
 
 interface DownloadProps {
-  download: string
   selectedFont: string
+  selectedCharSet: CharacterSetType[]
+  url: string
 }
 
-export function Download({ download, selectedFont }: DownloadProps) {
+export function Download({
+  selectedFont,
+  selectedCharSet,
+  url,
+}: DownloadProps) {
+  const [download, setDownload] = useState<string>('')
+
+  useEffect(() => {
+    if (!url) return
+    createDownload(url).then(setDownload)
+  }, [url])
+
   return (
     <section className="px-24 pb-16 my-24">
       <svg

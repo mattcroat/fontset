@@ -5,30 +5,27 @@ import { Font } from '@root/src/components/Font'
 import { Preview } from '@root/src/components/Preview'
 import { Download } from '@root/src/components/Download'
 import { Footer } from '@root/src/components/Footer'
-import {
-  createDownload,
-  createLink,
-  fontRequest,
-} from '@root/src/utils/helpers'
+import { createLink, fontRequest } from '@root/src/utils/helpers'
 
-import { WeightType } from './types'
+import { CharacterSetType, WeightType } from './types'
 
 export function App() {
   const [selectedFont, setSelectedFont] = useState<string>('Alegreya')
-  const [weights, setWeights] = useState<WeightType[]>([])
-  const [download, setDownload] = useState<string>('')
+  const [selectedWeights, setSelectedWeights] = useState<WeightType[]>(['400'])
+  const [selectedCharSet, setSelectedCharSet] = useState<CharacterSetType[]>([
+    'latin',
+  ])
+  const [url, setUrl] = useState<string>('')
 
   useEffect(() => {
-    if (!selectedFont || weights.length < 1) return
-
-    const url = fontRequest(selectedFont, weights)
+    const url = fontRequest(selectedFont, selectedWeights)
     const link = createLink(url)
-    createDownload(url).then(setDownload)
+    setUrl(url)
 
     return function cleanup() {
       link.remove()
     }
-  }, [selectedFont, weights])
+  }, [selectedFont, selectedWeights, selectedCharSet])
 
   return (
     <>
@@ -37,11 +34,18 @@ export function App() {
         <Font
           selectedFont={selectedFont}
           setSelectedFont={setSelectedFont}
-          weights={weights}
-          setWeights={setWeights}
+          selectedWeights={selectedWeights}
+          setSelectedWeights={setSelectedWeights}
+          selectedCharSet={selectedCharSet}
+          setSelectedCharSet={setSelectedCharSet}
+          url={url}
         />
         <Preview selectedFont={selectedFont} />
-        <Download download={download} selectedFont={selectedFont} />
+        <Download
+          selectedFont={selectedFont}
+          selectedCharSet={selectedCharSet}
+          url={url}
+        />
       </main>
       <Footer />
     </>
