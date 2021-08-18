@@ -5,20 +5,25 @@ import { Font } from '@root/src/components/Font'
 import { Preview } from '@root/src/components/Preview'
 import { Download } from '@root/src/components/Download'
 import { Footer } from '@root/src/components/Footer'
-import { createLink, fontRequest } from '@root/src/utils/helpers'
+import {
+  createDownload,
+  createLink,
+  fontRequest,
+} from '@root/src/utils/helpers'
 
-import type { WeightType } from './types'
+import { WeightType } from './types'
 
 export function App() {
   const [selectedFont, setSelectedFont] = useState<string>('Alegreya')
   const [weights, setWeights] = useState<WeightType[]>([])
-  const [downloadUrl, setDownloadUrl] = useState<string>('')
+  const [download, setDownload] = useState<string>('')
 
   useEffect(() => {
     if (!selectedFont || weights.length < 1) return
 
     const url = fontRequest(selectedFont, weights)
     const link = createLink(url)
+    createDownload(url).then(setDownload)
 
     return function cleanup() {
       link.remove()
@@ -36,7 +41,7 @@ export function App() {
           setWeights={setWeights}
         />
         <Preview selectedFont={selectedFont} />
-        <Download downloadUrl={downloadUrl} selectedFont={selectedFont} />
+        <Download download={download} selectedFont={selectedFont} />
       </main>
       <Footer />
     </>

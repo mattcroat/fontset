@@ -1,11 +1,11 @@
 import React from 'react'
 
 interface DownloadProps {
-  downloadUrl: string
+  download: string
   selectedFont: string
 }
 
-export function Download({ selectedFont, downloadUrl }: DownloadProps) {
+export function Download({ download, selectedFont }: DownloadProps) {
   return (
     <section className="px-24 pb-16 my-24">
       <svg
@@ -19,7 +19,7 @@ export function Download({ selectedFont, downloadUrl }: DownloadProps) {
         <path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z" />
       </svg>
       <a
-        href={downloadUrl}
+        href={download}
         download={`${selectedFont}.zip`}
         className="inline-block px-6 py-4 mt-16 text-2xl capitalize transition-all rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1"
       >

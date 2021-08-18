@@ -1,6 +1,6 @@
 import { downloadZip } from 'client-zip'
 
-import type { WeightType } from '@root/src/types'
+import type { FontType, WeightType } from '@root/src/types'
 
 export const weightLabel = {
   '100': 'Thin',
@@ -33,7 +33,7 @@ function styles(weights: WeightType[]) {
   return hasItalics(weights) ? ':ital,wght@' : ':wght@'
 }
 
-export function formatWeights(weights: string[]) {
+export function weightFormat(weights: string[]) {
   if (!hasItalics(weights)) return weights.sort().join(';')
 
   return weights
@@ -57,7 +57,7 @@ async function fetched(url: string, options = {}) {
   return result
 }
 
-export async function parseURL(url: string) {
+export async function fontParse(url: string) {
   const charSets = await fetched(url)
 
   return charSets.match(/(\/\* )(.|\n\r|\r|\n)*?}/g)?.map((charSet) => ({
@@ -67,42 +67,40 @@ export async function parseURL(url: string) {
     fontWeight: charSet.match(/font-weight: (\w+)/)![1],
     src: charSet.match(/src: url\((.*?)\)/)![1],
     unicodeRange: charSet.match(/unicode-range: (.*);/)![1],
-  }))
+  })) as FontType[]
 }
 
 export function fontRequest(selectedFont: string, weights: WeightType[]) {
   const baseUrl = 'https://fonts.googleapis.com/css2?family='
   const style = styles(weights)
-  const weight = formatWeights(weights)
+  const weight = weightFormat(weights)
   const display = '&display=swap'
-
-  return `${baseUrl}${selectedFont}${style}${weight}${display}`
+  const url = `${baseUrl}${selectedFont}${style}${weight}${display}`
+  return url
 }
 
 export function createLink(url: string) {
   const linkEl = document.createElement('link')
   linkEl.rel = 'stylesheet'
   linkEl.href = url
-
   document.head.append(linkEl)
-
   return linkEl
 }
 
-export async function zip(data: any[]) {
+export async function zip(data: any) {
   const blob = await downloadZip(data).blob()
   const url = URL.createObjectURL(blob)
   return url
 }
 
-export async function createDownload(selectedFont: string, url: string) {
-  const data = await parseURL(url)
-  const fonts = await Promise.all(
-    data.map(async ({ style, url, weight }) => ({
-      name: `${selectedFont}-${weight}-${style}.woff2`,
-      input: await fetch(url).then((url) => url.blob()),
+export async function createDownload(url: string) {
+  const charSets = await fontParse(url)
+  const data = await Promise.all(
+    charSets?.map(async ({ fontFamily, fontStyle, fontWeight, src }) => ({
+      name: `${fontFamily}-${fontWeight}-${fontStyle}.woff2`,
+      input: await fetch(src),
     }))
   )
-  const download = zip(fonts)
+  const download = await zip(data)
   return download
 }
