@@ -27,6 +27,6 @@ export const characterSetDescription = {
   'greek-ext': 'Polytonic Greek Extended',
   greek: 'Greek, Coptic',
   vietnamese: 'Vietnamese Extended',
-  'latin-ext': 'e.g. Afrikaans, Catalan, Croatian, Czech...',
+  'latin-ext': 'e.g. Afrikaans, Catalan, Croatian, Czech',
   latin: 'e.g. English, French, German, Spanish, Vietnamese',
 }
