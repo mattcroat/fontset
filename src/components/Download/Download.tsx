@@ -23,7 +23,7 @@ export function Download({
   }, [url])
 
   return (
-    <section className="px-24 pb-16 my-24">
+    <section className="px-8 md:px-24 pb-16 my-24">
       <svg
         className="w-24 h-24 mx-auto mt-16 text-blue-400"
         viewBox="0 0 24 24"
@@ -37,7 +37,7 @@ export function Download({
       <a
         href={download}
         download={`${selectedFont}.zip`}
-        className="inline-block px-6 py-4 mt-16 text-2xl capitalize transition-all rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1"
+        className="inline-block px-6 py-4 mt-16 text-xl md:text-2xl capitalize transition-all rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1"
       >
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-600">
           May I have the font, pretty please

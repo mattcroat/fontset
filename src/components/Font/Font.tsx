@@ -39,9 +39,11 @@ export function Font({
     ?.weights as WeightType[]
 
   return (
-    <section className="px-24 mt-24 space-y-8">
+    <section className="md:px-24 mt-24 space-y-8">
       <div>
-        <span className="block text-4xl italic">1. Select Google Font</span>
+        <span className="block text-2xl md:text-4xl italic">
+          1. Select Google Font
+        </span>
         <select
           onChange={(e) => {
             setSelectedFont(e.target.value)
@@ -49,7 +51,7 @@ export function Font({
             setSelectedCharSet(['latin'])
           }}
           value={selectedFont}
-          className="w-1/2 px-6 py-4 mt-8 text-2xl text-gray-800 border-none rounded-full"
+          className="w-4/5 md:w-1/2 px-6 py-4 mt-8 text-xl md:text-2xl text-gray-800 border-none rounded-full"
           name="font"
           id="font"
         >
@@ -62,7 +64,7 @@ export function Font({
       </div>
 
       <div className="space-y-4">
-        <span className="block text-2xl italic">Weights</span>
+        <span className="block text-xl md:text-2xl italic">Weights</span>
         <select
           onChange={(e) => {
             const weights = [...e.target.selectedOptions].map(
@@ -71,7 +73,7 @@ export function Font({
             setSelectedWeights(weights)
           }}
           value={selectedWeights}
-          className="w-1/2 text-black rounded h-80"
+          className="w-4/5 md:w-1/2 text-black rounded h-80"
           name="weights"
           id="weights"
           multiple={true}
@@ -89,7 +91,7 @@ export function Font({
       </div>
 
       <div className="space-y-4">
-        <span className="block text-2xl italic">Character Set</span>
+        <span className="block text-xl md:text-2xl italic">Character Set</span>
         <select
           onChange={(e) => {
             const charSets = [...e.target.selectedOptions].map(
@@ -98,7 +100,7 @@ export function Font({
             setSelectedCharSet(charSets)
           }}
           value={selectedCharSet}
-          className="w-1/2 text-black rounded h-80"
+          className="w-4/5 md:w-1/2 text-black rounded h-80"
           name="character-sets"
           id="character-sets"
           multiple={true}
