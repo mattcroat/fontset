@@ -73,7 +73,7 @@ export function Font({
             setSelectedWeights(weights)
           }}
           value={selectedWeights}
-          className="w-4/5 md:w-1/2 text-black rounded h-80"
+          className="w-4/5 md:w-1/2 text-black rounded h-80 scrollbar"
           name="weights"
           id="weights"
           multiple={true}
@@ -100,14 +100,14 @@ export function Font({
             setSelectedCharSet(charSets)
           }}
           value={selectedCharSet}
-          className="w-4/5 md:w-1/2 text-black rounded h-80"
+          className="w-4/5 md:w-1/2 text-black rounded h-80 scrollbar"
           name="character-sets"
           id="character-sets"
           multiple={true}
         >
           {charSets?.map((charSet, index) => (
             <option
-              className={`capitalize py-2 ${index % 2 === 0 && 'bg-gray-100'}`}
+              className={`py-2 ${index % 2 === 0 && 'bg-gray-100'}`}
               key={charSet}
               value={charSet}
             >

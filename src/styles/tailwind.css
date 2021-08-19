@@ -3,3 +3,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .scrollbar {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar::-webkit-scrollbar,
+  .scrollbar::-webkit-scrollbar {
+    width: 4px;
+    background: #ffffff;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb,
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #cdcdcd;
+  }
+}
+/* 
+@layer base {
+  html,
+  select {
+    scrollbar-width: thin;
+  }
+
+  html::-webkit-scrollbar,
+  select::-webkit-scrollbar {
+    width: 4px;
+    background: #ffffff;
+  }
+
+  html::-webkit-scrollbar-thumb,
+  select::-webkit-scrollbar-thumb {
+    background: #cdcdcd;
+  }
+} */
