@@ -1,6 +1,8 @@
-import { weightLabel } from '@root/src/utils/helpers'
+import { weightDescription } from '@root/src/utils/helpers/description'
 
-export type WeightType = keyof typeof weightLabel
+export type WeightType = keyof typeof weightDescription
+
+export type StyleType = ':ital,wght@' | ':wght@'
 
 export type FontType = {
   characterSet: string

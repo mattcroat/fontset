@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-import { characterSet, weightLabel } from '@root/src/utils/helpers'
 import fonts from '@root/src/data/fonts.json'
+import {
+  characterSet,
+  characterSetDescription,
+  weightDescription,
+} from '@root/src/utils/helpers'
 
 import type { CharacterSetType, WeightType } from '@root/src/types'
 
@@ -24,7 +28,7 @@ export function Font({
   setSelectedCharSet,
   url,
 }: FontProps) {
-  const [charSets, setCharSets] = useState<string[]>([])
+  const [charSets, setCharSets] = useState<CharacterSetType[]>([])
 
   useEffect(() => {
     if (!url) return
@@ -78,14 +82,14 @@ export function Font({
               key={weight}
               value={weight}
             >
-              {weight} ({weightLabel[weight]})
+              {weight} ({weightDescription[weight]})
             </option>
           ))}
         </select>
       </div>
 
       <div className="space-y-4">
-        <span className="block text-2xl italic">Character Sets</span>
+        <span className="block text-2xl italic">Character Set</span>
         <select
           onChange={(e) => {
             const charSets = [...e.target.selectedOptions].map(
@@ -101,11 +105,11 @@ export function Font({
         >
           {charSets?.map((charSet, index) => (
             <option
-              className={`py-2 ${index % 2 === 0 && 'bg-gray-100'}`}
+              className={`capitalize py-2 ${index % 2 === 0 && 'bg-gray-100'}`}
               key={charSet}
               value={charSet}
             >
-              {charSet}
+              {charSet} ({characterSetDescription[charSet]})
             </option>
           ))}
         </select>
