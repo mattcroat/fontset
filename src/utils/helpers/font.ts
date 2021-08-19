@@ -100,3 +100,31 @@ export async function createDownload(url: string): Promise<string> {
   const download = await zip(data)
   return download
 }
+
+export async function createStyles(
+  selectedCharSet: CharacterSetType[],
+  url: string
+): Promise<string> {
+  const charSets = await fontParse(url)
+
+  const filteredCharSets = charSets.filter(({ characterSet }) =>
+    selectedCharSet.includes(characterSet as CharacterSetType)
+  )
+
+  return filteredCharSets
+    .map(
+      ({ characterSet, fontFamily, fontStyle, fontWeight, unicodeRange }) => `
+/* ${characterSet} */
+@font-face {
+  font-family: '${fontFamily}';
+  font-style: ${fontStyle};
+  font-weight: ${fontWeight};
+  font-display: swap;
+  src: url(${fontFamily}-${fontWeight}-${fontStyle}.woff2) format('woff2');
+  unicode-range: ${unicodeRange};
+}
+`
+    )
+    .join('')
+    .trim()
+}

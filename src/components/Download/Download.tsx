@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { createDownload } from '@root/src/utils/helpers'
+import { createDownload, createStyles } from '@root/src/utils/helpers'
 
 import type { CharacterSetType } from '@root/src/types'
 
@@ -16,16 +16,18 @@ export function Download({
   url,
 }: DownloadProps) {
   const [download, setDownload] = useState<string>('')
+  const [styles, setStyles] = useState<string>('')
 
   useEffect(() => {
     if (!url) return
     createDownload(url).then(setDownload)
-  }, [url])
+    createStyles(selectedCharSet, url).then(setStyles)
+  }, [selectedCharSet, url])
 
   return (
-    <section className="px-8 md:px-24 pb-16 my-24">
+    <section className="px-8 md:px-24 pb-16 ">
       <svg
-        className="w-24 h-24 mx-auto mt-16 text-blue-400"
+        className="w-24 h-24 mx-auto text-blue-400"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
@@ -43,6 +45,15 @@ export function Download({
           May I have the font, pretty please
         </span>
       </a>
+      <div className="max-w-2xl bg-gradient-to-tl from-indigo-600 to-blue-600 p-8 mt-16 mx-auto text-left rounded shadow-md relative">
+        <button
+          onClick={() => navigator.clipboard.writeText(styles)}
+          className="absolute right-8 bg-indigo-400 px-4 py-2 rounded hover:shadow-md active:scale-105"
+        >
+          📋
+        </button>
+        <pre className="whitespace-pre-wrap">{styles}</pre>
+      </div>
     </section>
   )
 }
