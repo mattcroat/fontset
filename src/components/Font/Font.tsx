@@ -35,8 +35,9 @@ export function Font({
     characterSet(url).then(setCharSets)
   }, [url])
 
-  const weights = fonts.find(({ family }) => family === selectedFont)
-    ?.weights as WeightType[]
+  const weights = fonts.find(
+    ({ family }) => family.split(' ').join('+') === selectedFont
+  )?.weights as WeightType[]
 
   return (
     <section className="md:px-24 mt-24 space-y-8">
@@ -56,7 +57,7 @@ export function Font({
           id="font"
         >
           {fonts.map(({ category, family }) => (
-            <option key={family} value={family}>
+            <option key={family} value={family.split(' ').join('+')}>
               {family} ({category})
             </option>
           ))}
@@ -73,10 +74,11 @@ export function Font({
             setSelectedWeights(weights)
           }}
           value={selectedWeights}
-          className="w-4/5 md:w-1/2 text-black rounded h-80 scrollbar"
+          className="w-4/5 md:w-1/2 text-black rounded scrollbar"
           name="weights"
           id="weights"
           multiple={true}
+          size={weights.length}
         >
           {weights?.map((weight, index) => (
             <option
@@ -100,10 +102,11 @@ export function Font({
             setSelectedCharSet(charSets)
           }}
           value={selectedCharSet}
-          className="w-4/5 md:w-1/2 text-black rounded h-80 scrollbar"
+          className="w-4/5 md:w-1/2 text-black rounded scrollbar"
           name="character-sets"
           id="character-sets"
           multiple={true}
+          size={charSets.length}
         >
           {charSets?.map((charSet, index) => (
             <option
@@ -111,7 +114,7 @@ export function Font({
               key={charSet}
               value={charSet}
             >
-              {charSet} ({characterSetDescription[charSet]})
+              {charSet} ({characterSetDescription[charSet] ?? charSet})
             </option>
           ))}
         </select>

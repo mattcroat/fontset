@@ -44,7 +44,7 @@ export async function fontParse(url: string): Promise<FontType[]> {
 
   return charSets.match(/(\/\* )(.|\n\r|\r|\n)*?}/g)!.map((charSet) => ({
     characterSet: charSet.match(/\/\* (.*) \*\//)![1],
-    fontFamily: charSet.match(/font-family: '(\w+)'/)![1],
+    fontFamily: charSet.match(/font-family: '([\w ]+)'/)![1],
     fontStyle: charSet.match(/font-style: (\w+)/)![1],
     fontWeight: charSet.match(/font-weight: (\w+)/)![1],
     src: charSet.match(/src: url\((.*?)\)/)![1],
