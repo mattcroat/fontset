@@ -23,10 +23,10 @@ export const weightDescription = {
 
 export const characterSetDescription = {
   'cyrillic-ext': 'Cyrillic Extended',
-  cyrillic: 'Russian, Ukrainian, Belarusian, Bulgarian...',
+  cyrillic: 'e.g. Russian, Ukrainian, Belarusian, Bulgarian',
   'greek-ext': 'Polytonic Greek Extended',
   greek: 'Greek, Coptic',
   vietnamese: 'Vietnamese Extended',
-  'latin-ext': 'Afrikaans, Catalan, Croatian, Czech...',
-  latin: 'English, French, German, Spanish, Vietnamese...',
+  'latin-ext': 'e.g. Afrikaans, Catalan, Croatian, Czech...',
+  latin: 'e.g. English, French, German, Spanish, Vietnamese',
 }
