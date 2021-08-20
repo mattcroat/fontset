@@ -13,7 +13,7 @@ export function Preview({ selectedFont, selectedWeights }: PreviewProps) {
       <span className="text-2xl md:text-4xl italic">2. Preview & Download</span>
       <div className="mt-8 text-left border-t-2 border-blue-400 md:max-w-2xl md:mx-auto">
         {selectedWeights.map((selectedWeight) => (
-          <div className="p-4 border-b-2 border-blue-400">
+          <div key={selectedWeight} className="p-4 border-b-2 border-blue-400">
             <p className="text-green-100">{selectedWeight}</p>
             <p
               className="mt-2 text-2xl md:text-4xl"
