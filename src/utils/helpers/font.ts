@@ -101,30 +101,32 @@ export async function createDownload(url: string): Promise<string> {
   return download
 }
 
+function fontStyles(selectedCharSets: FontType[]) {
+  return selectedCharSets
+    .map((charSet) => {
+      return `
+/* ${charSet.characterSet} */
+@font-face {
+  font-family: '${charSet.fontFamily}';
+  font-style: ${charSet.fontStyle};
+  font-weight: ${charSet.fontWeight};
+  font-display: swap;
+  src: url(${charSet.fontFamily}-${charSet.fontWeight}-${charSet.fontStyle}-${charSet.characterSet}.woff2) format('woff2');
+  unicode-range: ${charSet.unicodeRange};
+}
+`
+    })
+    .join('')
+    .trim()
+}
+
 export async function createStyles(
   selectedCharSet: CharacterSetType[],
   url: string
 ): Promise<string> {
   const charSets = await fontParse(url)
-
-  const filteredCharSets = charSets.filter(({ characterSet }) =>
+  const selectedCharSets = charSets.filter(({ characterSet }) =>
     selectedCharSet.includes(characterSet as CharacterSetType)
   )
-
-  return filteredCharSets
-    .map(
-      ({ characterSet, fontFamily, fontStyle, fontWeight, unicodeRange }) => `
-/* ${characterSet} */
-@font-face {
-  font-family: '${fontFamily}';
-  font-style: ${fontStyle};
-  font-weight: ${fontWeight};
-  font-display: swap;
-  src: url(${fontFamily}-${fontWeight}-${fontStyle}.woff2) format('woff2');
-  unicode-range: ${unicodeRange};
-}
-`
-    )
-    .join('')
-    .trim()
+  return fontStyles(selectedCharSets)
 }
