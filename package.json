@@ -5,8 +5,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "fonts": "node src/utils/scripts/fonts.js",
-    "characters": "node src/utils/scripts/characters.js"
+    "fonts": "node src/utils/scripts/fonts.js"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.3",
