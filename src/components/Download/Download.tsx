@@ -46,15 +46,18 @@ export function Download({
           May I have the font, pretty please
         </span>
       </a>
-      <div className="max-w-2xl mt-16 mx-auto text-left rounded relative overflow-hidden shadow-md">
-        <button
-          onClick={() => navigator.clipboard.writeText(styles)}
-          className="absolute right-0 bg-gray-50 px-4 py-2 rounded-bl transition-transform hover:shadow-md active:scale-95"
-        >
-          📋
-        </button>
-        <Code code={styles} language="css" />
-      </div>
+      <section className="mt-24">
+        <span className="text-2xl md:text-4xl italic">3. Get CSS</span>
+        <div className="mt-8 max-w-2xl mx-auto text-left rounded relative overflow-hidden shadow-md">
+          <button
+            onClick={() => navigator.clipboard.writeText(styles)}
+            className="absolute right-0 bg-gray-50 px-4 py-2 rounded-bl transition-transform hover:shadow-md active:scale-95"
+          >
+            📋
+          </button>
+          <Code code={styles} language="css" />
+        </div>
+      </section>
     </section>
   )
 }
