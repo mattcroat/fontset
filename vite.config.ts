@@ -9,4 +9,8 @@ export default defineConfig({
     },
   },
   plugins: [reactRefresh()],
+  build: {
+    target: 'esnext',
+    minify: false,
+  },
 })
