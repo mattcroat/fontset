@@ -6,6 +6,4 @@
 
 You don't have to install anything, or understand [unicode ranges](https://developer.mozilla.org/en-US/docs/Web/CSS/%40font-face/unicode-range) but the downside is that you're limited to **Google Fonts**.
 
-The **Google Fonts** data is parsed from a **JSON** file through the clever use of the network tab and the **character table** is parsed from [Character Table](https://character-table.netlify.app/).
-
 I wrote a detailed post on [using fonts on the web](https://joyofcode.xyz/using-fonts-on-the-web) explaining everything in great detail.
