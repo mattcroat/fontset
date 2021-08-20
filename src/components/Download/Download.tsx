@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import { Code } from '@root/src/components/Code'
 import { createDownload, createStyles } from '@root/src/utils/helpers'
 
 import type { CharacterSetType } from '@root/src/types'
@@ -39,20 +40,20 @@ export function Download({
       <a
         href={download}
         download={`${selectedFont}.zip`}
-        className="inline-block px-6 py-4 mt-16 text-xl md:text-2xl capitalize transition-all rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1"
+        className="inline-block px-6 py-4 mt-16 text-xl md:text-2xl capitalize transition-transform duration-300 rounded-full cursor-pointer bg-gray-50 hover:shadow-md hover:-translate-y-1"
       >
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-600">
           May I have the font, pretty please
         </span>
       </a>
-      <div className="max-w-2xl bg-gradient-to-tl from-indigo-600 to-blue-600 p-8 mt-16 mx-auto text-left rounded shadow-md relative">
+      <div className="max-w-2xl mt-16 mx-auto text-left rounded relative overflow-hidden shadow-md">
         <button
           onClick={() => navigator.clipboard.writeText(styles)}
-          className="absolute right-8 bg-indigo-400 px-4 py-2 rounded hover:shadow-md active:scale-105"
+          className="absolute right-0 bg-gray-50 px-4 py-2 rounded-bl transition-transform hover:shadow-md active:scale-95"
         >
           📋
         </button>
-        <pre className="whitespace-pre-wrap">{styles}</pre>
+        <Code code={styles} language="css" />
       </div>
     </section>
   )
