@@ -40,7 +40,10 @@ export function App() {
           setSelectedCharSet={setSelectedCharSet}
           url={url}
         />
-        <Preview selectedFont={selectedFont} />
+        <Preview
+          selectedFont={selectedFont}
+          selectedWeights={selectedWeights}
+        />
         <Download
           selectedFont={selectedFont}
           selectedCharSet={selectedCharSet}
